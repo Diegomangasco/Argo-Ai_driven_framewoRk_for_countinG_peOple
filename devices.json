@@ -1,0 +1,114 @@
+{
+    "Lenovo Thinkpadx13Gen1": {
+        "id": 1,
+        "locked": 0.0,
+        "awake": 0.0,
+        "active": 0.43,
+        "mean_rate": 0.43,
+        "cap_id": [4187128328, 143, 843]
+    },
+    "Huawei P9Lite": {
+        "id": 2,
+        "locked": 0.05,
+        "awake": 0.32,
+        "active": 0.13,
+        "mean_rate": 0.08,
+        "cap_id": [0, 138, 916]
+    },
+    "Xiaomi Mi9Lite": {
+        "id": 3,
+        "locked": 0.25,
+        "awake": 0.28,
+        "active": 0.24,
+        "mean_rate": 0.26,
+        "cap_id": [2442297858, 141, 843]
+    },
+    "Xiaomi Note8t": {
+        "id": 4,
+        "locked": 0.96,
+        "awake": 0.0,
+        "active": 0.06,
+        "mean_rate": 0.68,
+        "cap_id": [1905426946, 145, 843]
+    },
+    "Samsung Note20Ultra": {
+        "id": 5,
+        "locked": 0.05,
+        "awake": 0.60,
+        "active": 0.16,
+        "mean_rate": 0.11,
+        "cap_id": [0, 144, 596]
+    },
+    "OnePlus Nord5G": {
+        "id": 6,
+        "locked": 0.22,
+        "awake": 3.90,
+        "active": 0.54,
+        "mean_rate": 0.43,
+        "cap_id": [4052911066, 142, 972]
+    },
+    "Apple MacPro": {
+        "id": 7,
+        "locked": 7.03,
+        "awake": 0.21,
+        "active": 0.29,
+        "mean_rate": 3.14,
+        "cap_id": [0, 137, 16981]
+    },
+    "Apple iPhone14Pro": {
+        "id": 8,
+        "locked": 0.08,
+        "awake": 0.44,
+        "active": 0.38,
+        "mean_rate": 0.22,
+        "cap_id": [0, 149, 16981]
+    },
+    "Apple iPhone13Pro": {
+        "id": 9,
+        "locked": 0.11,
+        "awake": 0.67,
+        "active": 0.84,
+        "mean_rate": 0.39,
+        "cap_id": [0, 147, 16981]
+    },
+    "Apple iPhone7": {
+        "id": 10,
+        "locked": 0.15,
+        "awake": 1.01,
+        "active": 1.26,
+        "mean_rate": 0.67,
+        "cap_id": [0, 140, 16976]
+    },
+    "Apple MacM1": {
+        "id": 11,
+        "locked": 0.0,
+        "awake": 0.0,
+        "active": 0.11,
+        "mean_rate": 0.11,
+        "cap_id": [0, 140, 16981]
+    },
+    "Apple iPad8": {
+        "id": 12,
+        "locked": 0.0,
+        "awake": 0.0,
+        "active": 0.23,
+        "mean_rate": 0.23,
+        "cap_id": [0, 140, 16981]
+    },
+    "Apple iPhone6": {
+        "id": 13,
+        "locked": 0.16,
+        "awake": 0.47,
+        "active": 0.59,
+        "mean_rate": 0.32,
+        "cap_id": [0, 139, 16981]
+    },
+    "Apple iPhone11": {
+        "id": 14,
+        "locked": 0.09,
+        "awake": 0.30,
+        "active": 0.37,
+        "mean_rate": 0.22,
+        "cap_id": [0, 139, 16981]
+    }
+}
