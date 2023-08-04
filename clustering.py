@@ -130,13 +130,15 @@ if __name__ == "__main__":
         device_numbers = dict()
         for key in cluster_values.keys():
             # Choose the closest device with similar characteristics
-            closest_group = min(rates_dict.keys(), key=lambda k: spatial.distance.euclidean(rates_dict[k][0], cluster_values[key]))
-            closest_rate = rates_dict[closest_group][1]
+            min_dist = rates_dict[
+                min(rates_dict.keys(), key=lambda k: spatial.distance.euclidean(rates_dict[k][0], cluster_values[key]))
+                ][0]
+            closest_rates = [rates_dict[k][1] for k in rates_dict.keys() if min_dist == rates_dict[k][0]]
+            L = sum(closest_rates)/len(closest_rates)
             # Number of packets inside the cluster
             N = len(list(filter(lambda k: k == key, cluster_labels)))
             # Capture time window
             T = TIME_WINDOW
-            L = closest_rate
             # Check if the ratio is acceptable to do the standard count, otherwise use a default value
             if N / T < MAX_RATIO:
                 K = N / (L * T)
