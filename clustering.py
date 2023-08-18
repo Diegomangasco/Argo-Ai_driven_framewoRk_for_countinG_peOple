@@ -11,6 +11,7 @@ LAYERS = 4
 FIELDS_NAME = ["wlan.extcap", "wlan.ht", "wlan.vht"]
 POWER_THRESHOLD = -70
 DEFAULT = 1
+MAX_RATIO = 1
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
@@ -29,13 +30,10 @@ if __name__ == "__main__":
     capture = pyshark.FileCapture(file)
 
     flat_time = datetime.datetime.timestamp(capture[0].sniff_time)
-
     TIME_WINDOW = 0
-    MAX_RATIO = 0
     pkt_counter = 0
     global_set = set()
     global_counter = 0
-    # time_list = list()
     values_list = list()
     df = pd.DataFrame([])
     cluster_counter = 0
@@ -49,8 +47,7 @@ if __name__ == "__main__":
         vht_cap = 0
         ext_cap = 0
         ht_cap = 0
-        time = datetime.datetime.timestamp(pkt.sniff_time) - flat_time
-        TIME_WINDOW = time
+        TIME_WINDOW = datetime.datetime.timestamp(pkt.sniff_time) - flat_time
         src_mac = pkt.layers[2]._all_fields.get("wlan.ta")
         first_octet = int(float.fromhex(src_mac.split(":")[0][1]))
         # Check the nature of MAC address
@@ -81,8 +78,6 @@ if __name__ == "__main__":
         )
         values_list.append(values)
 
-    MAX_RATIO = round(pkt_counter / TIME_WINDOW)
-
     # Count the global MAC addresses
     total_devices = len(global_set)
 
@@ -94,7 +89,6 @@ if __name__ == "__main__":
         cluster_labels = list(dbscan.fit(df).labels_)
 
         cluster_tmp = list()
-        # time_tmp = list()
         values_tmp = list()
         # Filter the noise group
         for i, x in enumerate(cluster_labels):
@@ -104,19 +98,8 @@ if __name__ == "__main__":
                 values_tmp.append(values_list[i])
 
         cluster_labels = cluster_tmp
-        # time_list = time_tmp
         values_list = values_tmp
-        # time_min_max = {cl: [-1, -1] for cl in set(cluster_labels)}
         cluster_values = {cl: [] for cl in set(cluster_labels)}
-
-        # logger.info("Collecting times")
-        # # Collect the time windows for each cluster
-        # for i, time in enumerate(time_list):
-        #     cluster = cluster_labels[i]
-        #     if time_min_max[cluster][0] == -1:
-        #         time_min_max[cluster][0] = time
-        #     time_min_max[cluster][1] = time
-        #     cluster_values[cluster].append(values_list[i])
 
         for i, val in enumerate(values_list):
             cluster = cluster_labels[i]

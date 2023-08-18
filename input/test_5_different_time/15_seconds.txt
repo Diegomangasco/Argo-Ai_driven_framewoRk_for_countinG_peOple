@@ -1,0 +1,76 @@
++++++++++++Simulation start+++++++++++
+Initial time (real and simulated): 2023-08-17 10:55:55.252196
+Device number 0 (Apple iphone11) created at time: 2023-08-17 10:55:55.252196
+Device number 1 (Xiaomi note8t) created at time: 2023-08-17 10:55:55.252196
+Device number 2 (Oneplus nord5g) created at time: 2023-08-17 10:55:55.252196
+Device number 3 (Samsung note20ultra) created at time: 2023-08-17 10:55:55.252196
+Device number 4 (Xiaomi mi9lite) created at time: 2023-08-17 10:55:55.252196
+Device number 0 (Apple iphone11) changed phase to 0 at time: 2023-08-17 10:55:55.252196
+Device number 1 (Xiaomi note8t) changed phase to 0 at time: 2023-08-17 10:55:55.252196
+Device number 2 (Oneplus nord5g) changed phase to 0 at time: 2023-08-17 10:55:55.252196
+Device number 3 (Samsung note20ultra) changed phase to 0 at time: 2023-08-17 10:55:55.252196
+Device number 4 (Xiaomi mi9lite) changed phase to 0 at time: 2023-08-17 10:55:55.252196
+Device number 0 (Apple iphone11) deleted at time: 2023-08-17 10:57:42.773196
+Device number 1 (Xiaomi note8t) deleted at time: 2023-08-17 10:57:42.773196
+Device number 2 (Oneplus nord5g) deleted at time: 2023-08-17 10:57:42.773196
+Device number 3 (Samsung note20ultra) deleted at time: 2023-08-17 10:57:42.773196
+Device number 4 (Xiaomi mi9lite) deleted at time: 2023-08-17 10:57:42.773196
+
+Device 0 information:
+Vendor: Apple
+Model: iphone11
+Use randomization: 1
+MAC address: ['f6:ab:96:e3:84:6c', '82:c0:9f:ab:fb:c6', 'de:e7:b7:e9:18:18']
+SSID: ['gHPHTteC1EOaUBHRGQwiI1zk7wTF2IbN', 'y5Q5GetH9EPDocITkd3y9K2pCBfl3xsV', 'ugaf5ufXY16vXlbMaxmoOfAMzqgChZHa', 'mWHJqqhRQy2urICQGAISG1cqSYAUIjb8', 'ZIKsZa7plim4vb0unSIpS640C2moeTMf', 'qHjFL4Z6krd9zoMCUrsaJJFIRmRBSbrZ']
+Number of different MAC address: 3
+Number of packets sent: 6
+Number of different bursts sent: 3
+
+Device 1 information:
+Vendor: Xiaomi
+Model: note8t
+Use randomization: 1
+MAC address: ['56:49:85:f3:9a:ce', 'aa:c6:42:5d:12:07', '3e:e3:95:be:21:f2', '5e:05:e1:2d:c7:8b', 'fe:b6:96:4a:d2:c9', 'fa:73:29:a4:a2:eb', 'ca:95:8a:3d:b0:24', '4a:88:8e:96:39:46', '02:1d:5a:0e:ef:88', 'ee:69:45:f9:38:fe', '3a:7b:5a:24:9f:1a', '52:3b:61:fe:85:4c', 'c6:e7:37:c1:83:e0', '1a:28:a1:45:4a:3c', 'aa:9b:43:43:d6:3a', '16:d6:e1:08:f7:9e', '56:73:9d:26:f4:b9', '26:ed:fe:4e:c6:a9', 'fa:85:41:c4:f2:ef', '6e:2e:35:b2:00:6d', '3e:e4:ea:b2:e9:c7', 'b2:1e:98:2d:48:4d', 'b2:26:6a:be:df:38', '52:2a:c0:0a:a5:88', '6a:aa:97:df:74:81', '36:0d:6a:4d:1f:79', 'b6:1b:00:97:76:77', '32:26:4e:94:54:9c', '52:50:98:00:ec:4d', 'aa:53:cb:da:91:95', 'ea:9a:63:11:74:17', '9e:54:99:bf:e4:4e', '46:53:55:92:c8:9f', 'e2:a9:15:bf:8a:57']
+SSID: []
+Number of different MAC address: 34
+Number of packets sent: 99
+Number of different bursts sent: 33
+
+Device 2 information:
+Vendor: Oneplus
+Model: nord5g
+Use randomization: 1
+MAC address: ['f6:8e:6a:a0:5c:56', '7a:c6:ec:6d:87:42', '52:87:81:f3:26:2f', 'a6:54:29:fc:03:0c', '62:b0:dc:b3:4e:1e', 'f6:99:3f:b7:14:d0', '0e:9f:b6:4d:04:ab', '36:8e:36:02:6e:04', '62:20:b0:4b:33:1d', '72:ef:9e:81:b8:05', '02:88:6a:b1:60:a3', '9a:7f:2e:22:da:64']
+SSID: []
+Number of different MAC address: 12
+Number of packets sent: 64
+Number of different bursts sent: 12
+
+Device 3 information:
+Vendor: Samsung
+Model: note20ultra
+Use randomization: 1
+MAC address: ['b6:52:39:8a:2d:98', 'e6:8d:90:b4:98:8e']
+SSID: []
+Number of different MAC address: 2
+Number of packets sent: 4
+Number of different bursts sent: 2
+
+Device 4 information:
+Vendor: Xiaomi
+Model: mi9lite
+Use randomization: 1
+MAC address: ['4a:97:54:1e:38:9e', '5e:78:49:26:cf:5a', 'ba:ab:84:4f:14:8c', '52:69:02:b9:c2:f5', '06:c0:71:c2:25:db', '52:ea:c2:80:53:f7', '22:c0:58:f1:af:cb', 'd2:2f:4b:5a:8c:9b']
+SSID: []
+Number of different MAC address: 8
+Number of packets sent: 32
+Number of different bursts sent: 8
+
++++++++++++Simulation end+++++++++++
+End time (real): 2023-08-17 10:56:10.319797
+End time (simulated): 2023-08-17 10:57:42.773196
+Time ratio (simulated/real): 7.14
+List of devices and statistics
+
+Total number of different MAC addresses: 59
+Total number of packets sent: 205
