@@ -106,6 +106,7 @@ if __name__ == "__main__":
         # Perform DBSCAN
         dbscan = DBSCAN(eps=epsilon, min_samples=min_samples, metric=dbscan_metric)
         cluster_labels = list(dbscan.fit(df).labels_)
+        print(cluster_labels)
         cluster_tmp = list()
         values_tmp = list()
         # Filter the noise group
