@@ -1,0 +1,13 @@
+Catture_Aula:
+Le catture sono con ground truth crescenti siccome gli studenti principalmente entravano nell'aula.
+E' possibile che il Raspi abbia catturato anche probe requests provenienti dalle zone subito fuori dall'aula.
+I numeri sono alti perchè abbiamo contato anche gli studenti in aula che non sono mai entrati/usciti, non è detto che chi era nei primi banchi sia stato sempre sniffato per colpa della distanza.
+
+Catture_Corridoio:
+Tanti scendevano solo per andare al bagno e non entravano poi in aula.
+Gli aumenti nel ground truth in Catture_Aula quindi non corrispondono necessariamente ai ground truth in Catture_Corridoio.
+
+Ogni cattura dura due minuti, ovviamente delle % dei ground truth possono sovrapporsi tra una cattura e la successiva.  
+I ground truth vanno sempre presi "con le pinze".
+
+Obbiettivo: centrare gli ordini di grandezza. 

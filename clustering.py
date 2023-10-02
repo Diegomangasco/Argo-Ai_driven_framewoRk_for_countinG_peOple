@@ -1,5 +1,6 @@
 import datetime
 import sys
+import argparse
 import pyshark
 import logging
 import json
@@ -9,16 +10,33 @@ from sklearn.cluster import DBSCAN
 
 LAYERS = 4
 FIELDS_NAME = ["wlan.extcap", "wlan.ht", "wlan.vht"]
-POWER_THRESHOLD = -70
-DEFAULT = 1
-MAX_RATIO = 1
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input_file", type=str, default="./input.pcap", help="Path for the .pcap trace.")
+    parser.add_argument("--max_ratio", type=int, default=100, help="Maximum Ratio for clustering algorithm.")
+    parser.add_argument("--power_threshold", type=int, default=-70, help="Threshold for the capturing power.")
+    parser.add_argument("--default_counter", type=int, default=1, help="Default number assigned to a cluster if the condition on the Maximum Ratio is not respected.")
+    parser.add_argument("--min_percentage", type=float, default=0.02, help="Minimum percentage of probe request that must have locally administered MAC address for doing clustering.")
+    parser.add_argument("--epsilon", type=int, default=4, help="Epsilon parameter for DBSCAN clustering.")
+    parser.add_argument("--min_samples", type=int, default=15, help="Min samples parameter for DBSCAN clustering.")
+    parser.add_argument("--dbscan_metric", type=str, default="euclidean", help="Metric parameter for DBSCAN clustering.")
+    opt = vars(parser.parse_args())
+
+    file = opt["input_file"]
+    max_ratio = opt["max_ratio"]
+    power_threshold = opt["power_threshold"]
+    default_counter = opt["default_counter"]
+    min_percentage = opt["min_percentage"]
+    epsilon = opt["epsilon"]
+    min_samples = opt["min_samples"]
+    dbscan_metric = opt["dbscan_metric"]
+
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger()
 
     start_time = datetime.datetime.now().timestamp()
-    file = sys.argv[1]
 
     # Read the device-model database
     with open("devices.json", "r") as fr:
@@ -41,7 +59,7 @@ if __name__ == "__main__":
     logger.info("Parsing packets")
     for pkt in capture:
         # Check if the signal power is sufficient
-        if int(pkt.layers[1]._all_fields.get("wlan_radio.signal_dbm")) <= POWER_THRESHOLD:
+        if int(pkt.layers[1]._all_fields.get("wlan_radio.signal_dbm")) <= power_threshold:
             continue
         pkt_counter += 1
         vht_cap = 0
@@ -79,22 +97,21 @@ if __name__ == "__main__":
         values_list.append(values)
 
     # Count the global MAC addresses
-    total_devices = len(global_set)
+    set_devices = len(global_set)
+    cluster_devices = 0
 
     # Check that at least the 2% of packets have a locally administered MAC address
-    if (pkt_counter - global_counter) > 0.02*pkt_counter:
+    if (pkt_counter - global_counter) > min_percentage*pkt_counter:
         logger.info("Model clustering")
         # Perform DBSCAN
-        dbscan = DBSCAN(eps=4.0, min_samples=15, metric="euclidean")
+        dbscan = DBSCAN(eps=epsilon, min_samples=min_samples, metric=dbscan_metric)
         cluster_labels = list(dbscan.fit(df).labels_)
-
         cluster_tmp = list()
         values_tmp = list()
         # Filter the noise group
         for i, x in enumerate(cluster_labels):
             if x != -1:
                 cluster_tmp.append(x)
-                # time_tmp.append(time_list[i])
                 values_tmp.append(values_list[i])
 
         cluster_labels = cluster_tmp
@@ -111,6 +128,7 @@ if __name__ == "__main__":
 
         logger.info("Counting devices")
         device_numbers = dict()
+        cluster_devices = 0
         for key in cluster_values.keys():
             # Choose the closest device with similar characteristics
             min_dist = rates_dict[
@@ -122,17 +140,19 @@ if __name__ == "__main__":
             N = len(list(filter(lambda k: k == key, cluster_labels)))
             # Capture time window
             T = TIME_WINDOW
-            # Check if the ratio is acceptable to do the standard count, otherwise use a default value
-            if N / T < MAX_RATIO:
+            if N / T < max_ratio:
                 K = N / (L * T)
                 K = round(K)
                 device_numbers[key] = K if K > 0 else 1
             else:
-                device_numbers[key] = DEFAULT
+                device_numbers[key] = default_counter
 
-        total_devices += sum(device_numbers.values())
+        cluster_devices +=  sum(device_numbers.values())
 
-    logger.info(f"Device detected: {total_devices}")
+    logging.info(f"Devices detected with set: {set_devices}")
+    logging.info(f"Devices detected with clustering: {cluster_devices}")
+    total_devices = set_devices + cluster_devices
+    logger.info(f"Total device detected: {total_devices}")
     end_time = datetime.datetime.now().timestamp()
 
     logger.info(f"End counting, total time: {round(end_time - start_time, 2)} seconds")

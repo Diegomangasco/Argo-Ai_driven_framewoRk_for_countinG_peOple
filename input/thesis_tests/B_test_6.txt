@@ -1,0 +1,123 @@
++++++++++++Simulation start+++++++++++
+Initial time (real and simulated): 2023-08-30 10:21:08.068710
+Device number 0 (Oneplus nord5g) created at time: 2023-08-30 10:21:08.068710
+Device number 1 (Apple iphone6) created at time: 2023-08-30 10:21:08.068710
+Device number 2 (Huawei p9lite) created at time: 2023-08-30 10:21:08.068710
+Device number 3 (Xiaomi note8t) created at time: 2023-08-30 10:21:08.068710
+Device number 4 (Apple iphone13pro) created at time: 2023-08-30 10:21:08.068710
+Device number 5 (Apple iphone14pro) created at time: 2023-08-30 10:21:08.068710
+Device number 6 (Samsung note20ultra) created at time: 2023-08-30 10:21:08.068710
+Device number 0 (Oneplus nord5g) changed phase to 0 at time: 2023-08-30 10:21:08.068710
+Device number 1 (Apple iphone6) changed phase to 0 at time: 2023-08-30 10:21:08.068710
+Device number 2 (Huawei p9lite) changed phase to 0 at time: 2023-08-30 10:21:08.068710
+Device number 3 (Xiaomi note8t) changed phase to 0 at time: 2023-08-30 10:21:08.068710
+Device number 4 (Apple iphone13pro) changed phase to 0 at time: 2023-08-30 10:21:08.068710
+Device number 5 (Apple iphone14pro) changed phase to 0 at time: 2023-08-30 10:21:08.068710
+Device number 6 (Samsung note20ultra) changed phase to 0 at time: 2023-08-30 10:21:08.068710
+Device number 2 (Huawei p9lite) changed phase to 2 at time: 2023-08-30 10:21:20.606481
+Device number 2 (Huawei p9lite) changed phase to 0 at time: 2023-08-30 10:21:22.533207
+Device number 3 (Xiaomi note8t) changed phase to 2 at time: 2023-08-30 10:21:39.578676
+Device number 5 (Apple iphone14pro) changed phase to 1 at time: 2023-08-30 10:22:05.583233
+Device number 5 (Apple iphone14pro) changed phase to 0 at time: 2023-08-30 10:22:05.799351
+Device number 3 (Xiaomi note8t) changed phase to 0 at time: 2023-08-30 10:22:22.955205
+Device number 1 (Apple iphone6) changed phase to 2 at time: 2023-08-30 10:22:38.443281
+Device number 2 (Huawei p9lite) changed phase to 2 at time: 2023-08-30 10:23:31.721256
+Device number 0 (Oneplus nord5g) changed phase to 2 at time: 2023-08-30 10:23:34.760546
+Device number 6 (Samsung note20ultra) changed phase to 2 at time: 2023-08-30 10:24:05.941229
+Device number 5 (Apple iphone14pro) changed phase to 2 at time: 2023-08-30 10:24:13.139198
+Device number 1 (Apple iphone6) changed phase to 0 at time: 2023-08-30 10:26:18.626608
+Device number 2 (Huawei p9lite) changed phase to 0 at time: 2023-08-30 10:26:55.636032
+Device number 6 (Samsung note20ultra) changed phase to 0 at time: 2023-08-30 10:27:02.914216
+Device number 4 (Apple iphone13pro) changed phase to 2 at time: 2023-08-30 10:29:11.480162
+Device number 3 (Xiaomi note8t) changed phase to 2 at time: 2023-08-30 10:30:30.338784
+Device number 3 (Xiaomi note8t) changed phase to 0 at time: 2023-08-30 10:30:34.704302
+Device number 0 (Oneplus nord5g) changed phase to 0 at time: 2023-08-30 10:31:27.715257
+Device number 5 (Apple iphone14pro) changed phase to 0 at time: 2023-08-30 10:32:36.071781
+Device number 4 (Apple iphone13pro) changed phase to 0 at time: 2023-08-30 10:32:37.960091
+Device number 4 (Apple iphone13pro) changed phase to 2 at time: 2023-08-30 10:32:44.131491
+Device number 0 (Oneplus nord5g) deleted at time: 2023-08-30 10:32:50.554302
+Device number 1 (Apple iphone6) deleted at time: 2023-08-30 10:32:50.554302
+Device number 2 (Huawei p9lite) deleted at time: 2023-08-30 10:32:50.554302
+Device number 3 (Xiaomi note8t) deleted at time: 2023-08-30 10:32:50.554302
+Device number 4 (Apple iphone13pro) deleted at time: 2023-08-30 10:32:50.554302
+Device number 5 (Apple iphone14pro) deleted at time: 2023-08-30 10:32:50.554302
+Device number 6 (Samsung note20ultra) deleted at time: 2023-08-30 10:32:50.554302
+
+Device 0 information:
+Vendor: Oneplus
+Model: nord5g
+Use randomization: 1
+MAC address: ['6e:ce:95:1d:ce:ec', '0e:0c:8f:7f:dc:9d', '9e:27:4a:e6:64:16', '0e:2f:54:6e:ab:46', 'd6:f4:38:15:09:d3', '36:53:48:da:a9:6c', 'e2:79:00:2c:b8:7d', '32:48:bf:55:29:b4', 'ae:da:2f:64:e2:90', '86:ff:ed:9a:1b:97', '1e:43:d0:2b:eb:b5', '86:a2:f7:92:7a:a6', '86:4f:5a:2b:22:85', '56:e6:c6:6c:94:74', '66:3e:cd:b0:d9:15', '46:a4:fe:84:a5:9e', '06:5b:80:b8:86:8c', '9a:29:44:c1:26:6b', '2e:67:c4:d5:5e:78', 'ea:85:87:d9:d7:bc', '86:a0:2f:9c:2b:bf', '86:06:5d:4e:d2:54', '4a:be:70:c9:a3:d3', '0e:24:01:ae:4a:e5', 'ce:6c:77:0c:39:85', '82:21:21:b7:98:22', '2a:99:34:b3:29:8d', '62:a8:ec:e3:0b:ac', 'ce:4b:f4:3d:e0:ea', '9a:df:b3:c6:9c:c7', 'd2:8c:10:96:86:38', 'c6:68:9d:75:d8:00', '76:df:89:7a:f1:50', '7a:d1:91:ef:5a:a3', 'da:c5:59:7b:4a:cf', 'da:23:c7:21:a4:83', '26:e2:63:c0:8a:b5', 'a2:93:88:fc:bb:6b', 'fa:27:2e:c0:6a:e4', '66:4f:ad:b6:9d:4e', '4a:9f:2c:51:fc:fe', 'b6:a8:a3:bb:d4:4d', 'de:5f:ff:cf:e5:18', '0e:29:93:9b:39:66', '5a:03:3a:6c:67:3b', '82:2e:ba:e7:0a:b0', 'c2:1d:81:95:cb:c3', '0a:e4:ea:c7:ae:71', 'ca:dc:b7:2b:74:8f', 'f6:cb:03:41:17:e4', '66:18:5a:d5:f0:94', 'f2:74:53:83:04:aa', '66:28:19:72:d5:63', '42:ef:cf:fc:9c:c7', '22:0c:93:8c:04:f8', '2e:98:6f:26:b6:fd', '5e:54:42:02:4c:f0', '8a:d8:6c:c0:3c:30', '32:84:42:58:32:26', '76:8f:24:d3:92:db', '9a:2f:d3:bc:02:5b']
+SSID: ['zoui1leNEekosIvs0o4R5HhwGLs7gMkh', 'gtCpX633Hgo9ls8m1RMDnEsU0DCCZm1C', 'jXVh7CqUrgMaM5djCCYal5jsUTpZMzXV', '3CT9Of3jccTmnn8dJFdfamnvK38gP8qa']
+Number of different MAC address: 61
+Number of packets sent: 318
+Number of different bursts sent: 61
+
+Device 1 information:
+Vendor: Apple
+Model: iphone6
+Use randomization: 1
+MAC address: ['92:ad:b2:c3:28:bc', 'a6:e1:21:68:b5:20', '32:d2:e5:91:ac:ee', '82:df:6f:3f:f4:24', '06:42:10:30:b3:2a', '6e:d5:89:78:9c:d5', 'da:1a:2f:ec:0c:a7', 'e2:cb:05:43:a0:c6', 'e6:ab:61:1a:ab:6f', '2e:fb:fc:38:1d:8d', '6e:f7:09:0d:12:dc', '9a:e3:76:a7:c2:cd', '22:8b:94:af:c4:6d', 'ae:19:b6:00:35:9e', 'f2:f8:52:9e:1a:8c', 'f6:23:9a:89:b9:7e', '42:c1:04:b1:69:d1', '52:07:90:cf:74:93', '0a:40:cb:48:51:cf', '82:fb:9f:5f:a0:b7', 'aa:37:48:74:35:ad', 'fe:5a:06:12:8f:01', '56:ed:68:9e:d6:b1', '32:df:87:6b:27:65', '4e:80:ff:c5:24:24', '3a:de:7d:8e:57:89', 'da:87:ff:dc:0f:98', 'ee:80:a8:59:dc:74', '52:6d:4f:ae:13:b0', '9e:ef:bf:30:af:93', '9a:20:53:f1:53:90', '42:da:c4:8a:f4:d6', '12:89:ad:42:d5:93', 'a2:bc:1c:09:90:46', 'a6:9d:c3:3c:1c:45', '46:5b:9c:8d:7f:9a', '36:1a:8b:aa:a2:2a', 'be:fa:33:1e:14:60', '16:63:de:7f:48:8e', 'fa:e5:9f:51:64:dd', '4a:61:21:57:b1:16', '32:9e:ad:dd:db:7a', '4e:40:04:db:62:4e', 'f6:a9:39:28:a6:4d', '0e:88:cf:15:1f:ce', '96:41:92:88:63:4e', '2e:80:f1:65:2c:48', '0a:87:a0:4e:5a:64', '36:a5:7a:13:5d:c5', '8a:5c:d6:9a:7a:f5', 'fa:06:24:af:72:d0', 'f2:24:f5:9c:7d:67', '2a:cf:31:31:8d:ae', 'de:d8:a0:cd:c8:fd', '8a:22:f7:d5:72:5d', '2e:42:95:3a:c1:c0', '72:5b:bc:28:4b:aa', '1e:df:1a:3d:f2:e8', 'f2:64:f2:53:c1:df', '02:c7:5a:11:ba:d0', '6a:2a:d3:84:eb:44', '5a:12:c6:8c:96:55', '5e:ae:8a:26:63:42', 'ca:b7:c4:2b:49:8a']
+SSID: []
+Number of different MAC address: 64
+Number of packets sent: 200
+Number of different bursts sent: 64
+
+Device 2 information:
+Vendor: Huawei
+Model: p9lite
+Use randomization: 0
+MAC address: ['00:22:a1:f3:5b:e3']
+SSID: []
+Number of different MAC address: 1
+Number of packets sent: 52
+Number of different bursts sent: 52
+
+Device 3 information:
+Vendor: Xiaomi
+Model: note8t
+Use randomization: 1
+MAC address: ['26:3f:7d:05:75:09', '9a:6e:a0:bf:9e:68', '12:23:bb:9e:c8:ef', 'f2:26:57:da:25:dc', '7e:0f:d6:24:de:34', '5e:ac:4f:a6:99:5c', 'a6:8a:60:e9:d8:90', 'a6:a3:35:4a:ac:da', '4a:74:3e:a4:d6:2a', '7a:e9:c1:5c:11:a2', 'e6:41:56:c5:dc:2e', 'aa:4e:64:c5:4c:fd', '02:06:dc:ff:35:a3', 'c2:01:39:0b:00:b1', 'ee:3c:82:1e:50:78', '02:ad:21:48:c6:51', 'e2:5e:8c:2e:56:d9', 'ea:e2:f8:52:72:5d', 'ba:23:26:cb:0a:97', '86:21:52:03:a5:f8', '16:65:3b:67:e7:28', '56:dc:2e:94:75:64', '82:1d:67:a1:81:98', '3e:2e:da:c8:44:86', '4e:63:93:c7:35:3d', '5a:d2:39:b4:72:d0', '1a:30:5b:34:17:51', '5e:34:29:d7:a1:ed', '56:a5:e0:c3:42:ca', '32:33:2c:56:3e:c7', '22:c2:64:ea:7a:96', 'de:87:59:44:e3:f8', 'fe:de:dc:49:f3:a7', '9e:bf:93:72:93:9c', '1a:d8:11:e7:0f:54', '32:04:ef:c6:fe:a4', 'f6:d8:9f:02:54:32', '4a:13:4c:bf:ee:ec', 'ca:f2:a5:5f:6a:60', 'da:f5:8e:57:a2:b7', '9a:61:5a:e9:59:1a', '92:06:e3:21:6f:1a', 'c6:53:21:84:b8:37', '46:e1:65:71:82:85', 'c2:e7:0d:42:41:ce', '26:78:2e:b4:5d:f3', '22:12:82:f6:69:e5', '1a:4b:0c:39:cc:84', 'ba:b6:01:f8:2b:a4', 'ea:16:09:9c:3d:d5', '16:e9:2d:e4:4e:cd', '56:a8:9b:4d:4f:7f', 'f2:58:6e:a4:55:d7', '0a:e9:dd:78:a2:f7', '9e:46:9c:e8:d8:3a', '16:cc:da:88:20:50', '3a:2b:9b:78:80:7f', 'de:c9:e7:e1:70:40', 'e6:f7:0a:9c:c2:31', '72:66:07:0a:aa:79', 'da:92:ac:30:e8:33', '9e:6d:78:d6:1d:0e', '62:6c:6b:77:de:9a', '8e:57:db:58:a4:35', '9e:a4:0b:46:ed:a3', '5a:d1:a4:e4:ad:0c', 'de:09:cb:37:e6:dc', 'ee:10:d3:e9:21:6b', '9a:c3:0a:a5:a8:f2', 'c6:60:a0:cb:03:ee', '9e:f6:57:c3:59:d1', '16:1f:84:29:cc:5f', 'ee:95:f3:a3:71:c5', '0a:6c:51:61:3c:c3', '3a:fc:a5:56:4d:aa', 'b6:75:ce:90:df:fc', 'b6:52:cd:b3:5b:77', '72:d6:70:57:ee:36', '92:2a:28:90:93:23', 'da:cd:4f:cf:bb:c0', '3e:1f:bb:25:4b:0c', 'f2:9e:ae:64:8b:4a', 'be:1c:36:c5:bd:43', 'b2:4e:a5:2b:3c:dd', 'ca:33:16:cf:39:44', '96:00:39:de:62:8d', '7e:dd:88:a6:c7:41', '4a:15:de:87:15:ed', '1a:60:30:21:71:c6', '22:2c:c6:42:c7:93', '7a:49:ca:f6:74:7d', '56:65:a3:57:f2:ca', 'aa:ef:27:3d:72:85', '1a:d0:06:b4:be:b3', '4a:51:37:96:65:42', '6e:6b:a8:49:0f:fa', '0a:22:c6:4c:f8:e4', '46:6c:15:8a:2e:ea', '36:a4:4c:cc:4a:2b', 'fa:cf:1f:26:df:08', 'ae:d7:ea:4e:e7:b4', '52:a5:35:87:cc:25', 'fe:b0:86:29:fe:65', '76:26:7c:6b:23:2c', '56:3b:8f:a8:2c:fb', 'f6:1b:4c:e7:63:65', 'e6:9e:24:26:65:01', 'ca:79:85:96:05:71', 'd6:41:9b:b9:bf:33', '3e:ce:41:fc:ff:d3', 'aa:02:f2:9f:91:85', '0e:0a:42:d7:97:85', '5a:12:d4:01:ae:71', '02:6b:74:5d:21:20', 'f6:80:8e:71:98:1e', '52:d2:4e:27:4d:26', '1a:55:b1:c5:eb:5b', '0e:a6:76:9b:4c:ce', '92:53:ad:d4:d9:7c', '46:a7:97:f6:e7:d9', '82:b6:42:98:81:18', '9a:71:39:26:da:91', '1a:d8:7b:bf:c3:cc', '2e:18:51:b5:40:1b', '26:68:a7:55:80:7e', '5e:0a:c0:bb:38:f8', 'fa:68:7b:ef:c3:36', 'd2:39:be:ea:47:64', 'ce:30:aa:22:4a:9a', 'e6:a8:3d:b2:1d:33', 'ee:7e:ab:f0:30:f4', '3a:1a:78:05:c1:b8', '7e:97:4a:da:9e:8c', 'a6:22:3d:f9:5c:fc', '42:37:76:9e:bb:2b', 'aa:ca:57:d7:25:7a', 'b6:93:69:f7:0e:19', '5e:7b:bc:9d:c8:b4', 'ce:d7:a0:30:6d:46', '02:65:04:ea:b0:70', '16:a6:ae:f7:03:68', '3a:87:08:78:19:62', 'fe:c6:26:cf:e4:58', 'd6:74:c0:cf:7e:43', 'd6:69:57:4a:fb:20', '8e:3b:8a:2e:1c:73', '2e:b9:fa:f7:84:b9', '5a:cc:51:af:27:01', '1e:78:43:be:43:a2', '9e:70:53:2a:ce:92', 'ee:b5:11:1d:9a:c1', 'c2:48:1e:eb:54:35', '92:e7:46:16:5b:b6', '8a:4d:07:af:99:4c', 'e2:e1:38:e7:0a:bc', '22:6c:e4:d7:27:39', 'ea:e8:b1:41:05:e3', '8a:1a:04:c5:94:19', 'b2:8f:4c:4f:fe:fd', '46:38:ba:43:16:d4', 'ee:de:46:95:87:55', 'b2:2d:30:cd:40:ba', 'b2:ba:ec:59:f1:1a', '1a:cc:f4:56:72:f8', '46:f3:35:28:3b:37', '12:99:86:0f:5d:f1', '9e:e4:86:c9:2d:b2', '3e:a7:32:59:9c:5c', '9a:7a:61:28:a9:ff', '9e:95:69:4f:36:98', '9e:ed:76:b3:13:f8', '86:cb:6e:06:91:63', 'ea:1a:b1:f9:da:54', 'ae:04:26:2c:3f:c4', 'b2:29:57:97:af:3e', '06:37:77:d8:5c:97', 'd6:d3:fa:5e:58:f9', 'de:ab:46:72:dc:c9', '56:d5:88:59:d5:a3', '4a:02:10:ed:18:9e', 'd6:05:87:c8:11:c6', 'aa:a2:22:15:e8:35', 'b2:14:1e:15:40:36', '1a:c7:92:09:0a:33', '9e:a1:e3:21:ac:b3', '3e:36:42:1f:2e:ca', '4a:e9:14:12:19:9c', '96:eb:96:9b:48:62', 'ee:9a:20:7d:1c:dd', '6e:9b:70:6b:76:7a', '62:e3:ce:2f:75:a0', '3e:3a:5a:e2:8e:63', 'ae:75:71:ed:09:53', '86:d4:6f:b2:a8:7c', 'b2:af:41:80:ba:ed', '26:0f:cc:93:53:7b', '6a:a8:a9:7d:94:ce', '86:7d:9c:2a:f6:39', 'e6:88:fd:4f:46:b5', 'aa:a1:86:06:47:a0', 'ee:cb:22:5a:8d:f9', 'fe:fe:3f:4d:30:fb', '9e:59:31:11:d7:89', 'd2:e2:a5:85:37:58', '1a:53:ea:32:0f:c5', 'a6:a3:09:68:6d:30', '4e:24:ee:b9:1a:c2', 'c6:5a:f2:66:2c:cb', '7a:4e:75:cf:0c:39', 'f2:dc:3d:f0:39:f0', '3e:fb:58:c3:ed:9a', '02:42:85:0c:b9:de', '3e:93:fd:a3:48:66', 'c2:e3:b9:02:2b:88', '9a:a2:27:5c:c1:32', '46:72:30:ca:30:8a', '0a:ff:11:62:96:a8', '7e:b9:87:ad:67:d0', 'ce:77:f4:10:b6:e7', '5e:01:88:aa:2c:fc', '42:64:61:0f:21:5f']
+SSID: ['fLOTFDQWRK3rjNdLPHwTmd2ZhmTqReF9', 'J2ZZhpUAgm5KTPYcYSrBW6oY19dQbsNm', 'vibP8TI1cZBm7FM3QK6cEkEDiSdjTYaB', '4dVD6dSkiWiIFqLXQBVK4jZAaFgSbSXS', 'UMLDNv4JkkO420ZF6HLaOzHhG4XFPPrC', 'tQCujE0PGXdVGcUb6G2xPM9HY2JE1JZn']
+Number of different MAC address: 221
+Number of packets sent: 630
+Number of different bursts sent: 220
+
+Device 4 information:
+Vendor: Apple
+Model: iphone13pro
+Use randomization: 1
+MAC address: ['46:c0:b5:9a:1d:86', '1e:df:34:3f:29:c8', 'a6:bd:a9:ea:1e:ae', 'ba:1a:c7:f0:53:38', 'd6:82:68:18:74:7e', 'ae:b3:a8:7f:68:2b', '1e:b7:7c:fd:a9:7b', 'ca:81:cc:38:45:b6', 'ce:9e:df:6e:96:2c', '86:b5:bd:2d:1a:4a', 'a6:c0:4e:72:46:c0', 'b2:87:94:8d:93:ab', '6e:b3:24:5f:cc:18', '66:a9:66:31:00:89', '1e:04:07:1c:76:59', 'b6:09:2e:cf:86:2c', '86:83:4d:e4:61:6b', '2e:ae:d0:e2:e5:fb', '36:fa:50:e6:8d:db', 'ae:06:78:3b:b2:96', '02:32:f7:45:0c:39', '5a:8d:a1:18:24:f0', 'fe:8b:f3:f2:4a:e5', '3e:61:22:95:c3:7f', '86:ec:cc:0c:92:fd', '36:5a:68:a6:fe:17', 'd2:8f:cb:75:da:c6', '42:b5:f5:6d:e4:2f', '0a:0c:a0:9e:ea:24', '5a:f1:69:bb:99:16', 'b6:d4:bb:75:96:d2', '72:0e:ef:de:e7:15', '62:01:c1:42:ae:76', '9e:2b:f0:c9:b1:9d', 'be:97:63:bb:3b:58', '0e:28:f9:39:ac:e7', '4a:8e:12:cb:9f:92', 'ea:4f:8a:5b:4c:d8', 'ee:f1:d7:46:e3:bb', '02:d6:85:40:2e:e3', '06:bc:6a:25:11:ff', 'ae:5f:d9:5a:e9:18', '8a:c4:e2:69:19:81', '06:26:88:95:c4:37', '86:52:1c:d0:94:63', '22:20:5e:a1:8d:cc', 'ae:5d:d2:54:02:22', '0e:e4:31:49:70:8c', '9a:65:46:e9:30:03', 'ae:d9:3e:52:59:70', 'ca:09:34:77:e7:f2', 'ee:ef:9a:a3:96:87', '4a:7e:20:72:3d:1f', '4a:73:ce:25:07:7f', '82:68:31:7b:10:dc', 'c2:51:b5:cd:8a:8a', 'a2:8f:9b:eb:a7:8a', 'b6:9b:4a:4d:44:56', '52:f1:ce:c8:e0:2f', '72:59:75:dc:b2:88', '6e:60:99:a3:45:a8', '8e:1c:9e:37:7d:af', 'fa:d4:f2:bc:19:ea', '72:02:d7:ba:09:aa', 'de:26:62:e0:ab:89', 'ce:b1:33:92:e0:66', 'be:68:6e:2a:6b:69', '06:72:d6:70:9d:ac', '82:57:7a:47:b8:f8', '1a:f1:90:27:8c:35', '5e:66:57:5a:52:3b', '3a:e7:18:f8:32:21', '22:20:9f:d5:2e:63', 'b2:a2:b5:2e:4e:0b', 'fe:20:4f:13:4d:95', '1e:12:66:50:b2:03', '5e:5d:32:d2:7f:1e', '6a:eb:bf:ed:5e:9f', 'ba:25:12:a2:a1:53', '96:93:46:c2:81:1b', '4a:a5:92:29:16:1e', '46:25:fb:b6:66:91', '06:5a:2f:8d:35:29', 'ea:d8:aa:c7:98:c1', '6a:15:c0:d9:31:a3', '8e:47:a4:31:44:f2', '42:27:51:fd:2c:e9', '62:65:a4:a0:ca:7a', '2e:1e:55:b1:f2:8d', '4a:6c:29:54:c1:fc', 'f6:cb:6f:16:06:02', '3a:38:bb:7e:b8:0e', '06:fb:d5:0b:55:1c', 'b2:59:cb:94:0c:be', 'ba:8f:48:88:65:c9', 'a2:fe:56:5a:a4:88', 'd2:22:87:d8:c5:ae', '72:d6:04:39:72:95', '4e:87:51:02:58:1d', '22:79:12:21:6c:bc', 'a2:1c:46:5d:fe:38', 'de:2e:8a:60:a8:1f', '56:e7:1b:a4:0e:4d', '76:f6:38:58:b2:da', '0a:5f:13:c0:a8:b9', 'fe:8d:db:68:15:12', '0a:3e:1f:5c:e6:92', 'fa:3d:56:af:bd:c3', '66:d2:46:52:20:8b', '62:b4:9d:88:c2:57', '4e:6e:15:8a:52:70', 'de:b7:c2:58:77:97', '7e:64:0c:a9:e7:cc', '76:0e:0f:3f:3c:a4', 'de:9f:ca:d2:6a:d5', '32:83:0d:65:1d:c1', 'de:b1:7a:59:f7:ff', '66:af:77:78:55:ce', '72:5d:15:58:b2:6c', '92:ab:04:f3:6c:ea', 'be:c7:61:12:d6:ce', 'fe:e5:93:28:33:2f', 'da:7f:44:b0:47:a7', '8e:77:a3:7c:12:53', '12:d1:ff:7a:9b:91', 'd6:7a:b1:4e:e3:66', 'e6:46:48:e1:41:df', '4e:fd:02:66:bd:96', '02:55:45:97:16:1d', '02:43:d9:a8:4b:dd', 'ae:d0:bf:0e:db:03', 'fa:22:e8:41:da:71', '5e:97:6f:d0:3f:88', '46:7a:1c:dd:e5:2e', 'b6:ca:3e:7d:76:84', 'd2:47:8e:cc:30:6a', '16:68:46:01:a9:0c', 'de:df:38:b4:07:5d', 'c2:3e:ae:66:c5:38', '6e:55:05:bf:eb:3e', '96:98:77:e2:07:d1', '72:05:b5:3d:28:f5', '02:34:7b:98:30:a1', 'd6:f0:e2:98:a1:a1', '22:fb:e6:32:6e:02', '0e:4e:5d:64:c0:74', '32:99:dc:c8:7a:a3', 'be:88:76:f3:17:41', '92:fe:ac:d7:85:9c', '1e:ec:97:81:a6:e8', '96:43:6e:ae:d5:68', 'f2:09:73:35:8f:62', 'fa:c7:b2:dd:47:6a', '4a:00:e7:c1:f9:a4', 'd6:fc:1a:a5:55:34', 'd2:fe:e8:b2:2d:82', '2e:6f:d5:50:2c:97', '1e:d2:d7:86:cd:b7', '52:93:8f:80:8b:d3', 'fe:c4:ea:f8:ab:ef', 'ae:20:c9:11:9a:cf', '62:de:cc:58:d7:9b', '42:a4:48:c8:a6:e6', '4a:7e:c4:c7:a7:c3', 'ea:85:ce:12:e0:f0', 'b2:e0:d3:4b:ba:96', 'da:26:41:b5:c6:6a', 'ae:3c:bf:7f:39:94', '0a:94:2a:23:d4:fe', 'c6:4e:0c:9c:91:d9', '7a:d0:77:cd:51:f1', 'ee:88:9d:b8:47:7d', '32:9b:61:2a:ee:10', 'a6:5a:5b:07:e9:ef', 'a2:54:b2:dc:a2:29', '32:28:77:dd:35:0f', 'be:41:95:51:f3:ef', 'ee:58:a4:a2:4e:9b', '52:99:ae:ef:87:51', '8a:58:87:00:d6:ae', 'c2:81:f9:52:b9:78', '86:8a:1f:0c:c2:0f', '2e:5c:8b:51:3d:da', '5a:14:45:c1:49:3c', 'ba:86:36:09:27:9e', '06:e7:91:ec:12:0b', 'da:c2:95:b2:e7:99', 'a6:35:a6:73:42:9e', '3a:35:f1:23:4c:50']
+SSID: []
+Number of different MAC address: 189
+Number of packets sent: 274
+Number of different bursts sent: 189
+
+Device 5 information:
+Vendor: Apple
+Model: iphone14pro
+Use randomization: 1
+MAC address: ['4e:43:6b:0a:42:a0', '0a:b6:c8:30:56:23', '02:19:6c:23:51:58', '1e:6e:93:dc:ef:fc', '5e:e8:54:a9:35:42', '6a:9b:f1:bd:72:14', '82:d3:56:e4:ce:74', '7e:d8:00:e4:89:5e', '76:06:79:b3:45:8c', '52:3e:04:c8:5f:22', '3a:14:69:29:e4:c7', 'be:f9:c6:dc:f9:e3', '42:20:b5:58:17:ce', 'a2:b8:f1:69:bd:e8', 'ba:bd:f1:d1:d6:7d', 'f6:c0:e3:87:0b:71', 'da:50:7c:6c:31:0e', '6e:07:cf:28:cb:63', '6a:dd:73:63:33:dd', '4a:09:56:8c:8d:39', '92:8d:00:d8:26:00', 'fa:ac:13:9b:95:43', '56:ee:40:2c:33:2d', 'be:d8:56:46:f3:f1', '5a:78:1d:9f:8c:30', 'd2:43:17:24:f9:46', '16:aa:f4:96:bc:be', 'c6:0e:b7:61:94:19', '0e:44:54:db:94:ce', 'de:d9:b8:c1:59:c2', '8e:f6:55:f2:06:6a', 'f2:a9:5b:4c:72:e2', '8a:bb:76:d5:03:7d', '4a:6d:05:af:27:50', 'd2:28:e9:4b:56:2b', 'ce:39:ab:b8:4f:c6', '82:99:46:d4:66:17', '7e:1f:99:16:f8:b3', '92:25:35:60:58:59', '5e:2d:ca:08:43:6e', '82:ec:78:7a:d1:3c', 'f2:2f:be:9a:81:23', '7a:f8:40:c9:b2:2e', '5a:0c:0e:68:52:b4', '8a:60:6e:a4:2a:ba', 'e2:0c:fa:f9:28:cf', 'a6:a9:de:02:3f:2c', 'de:13:8a:87:fe:b3', '6a:93:e8:c5:1b:ce', 'aa:7b:0a:4d:3e:7f', 'ce:ee:f1:cb:fd:a8', '22:88:9c:5d:f2:86', 'da:d7:ce:8c:7b:1b', '26:41:39:38:4b:c1', 'e2:46:e5:a1:a1:ab', 'ca:27:5f:8e:6c:c1', 'd2:0f:cd:0a:c6:35', '7e:3f:fe:c5:ad:f5', '5a:2b:5a:54:ed:fd', 'f2:60:ae:03:18:65', '4a:91:9c:a6:88:32', 'fe:2f:d6:03:34:83', '12:e6:3f:1c:fd:11', '5a:9a:ca:ff:e3:dd', '12:b9:32:e8:52:e3', '72:5c:b3:ef:bf:c9', 'fe:42:81:b4:68:63', '6a:94:6a:14:6f:27', '1e:b0:3b:2f:9b:bf', '72:73:fe:5e:54:f1', 'ae:18:bb:4a:e2:03', '4e:a0:a4:db:05:ce', '12:75:50:64:e4:b7', 'a6:28:da:31:09:09', '7a:2e:66:ff:b7:5a', '42:66:29:c2:03:76', 'ca:41:35:65:dd:8a', 'b6:4c:c3:0b:9a:92', 'fa:34:a0:40:b5:ab', '5e:68:55:11:1a:df', '6a:ad:9c:a4:04:26', '92:0e:aa:ff:a3:6f', '7a:e4:00:0e:b9:23', 'da:00:c6:56:05:c1', 'a2:c1:7d:25:84:95', '62:3b:0d:ae:99:d6', '9e:92:69:67:5c:5d', 'c2:59:c2:0c:17:31', '12:da:74:cb:5f:9a', '52:95:4d:a3:65:c7', 'e2:a0:e1:b4:71:07', '4e:b9:78:c4:e4:f6', 'd6:d7:92:76:ff:e6', 'ca:78:de:2f:78:40', '6e:ae:a5:a5:8a:51', '3a:a0:9f:cb:de:b7', 'fe:58:f2:c2:f9:c1', '0e:ca:62:7d:ae:f9', 'e6:58:ac:db:8a:02', 'e2:d0:28:81:9a:3b', '02:4a:ab:3b:c5:f1', 'e6:bb:eb:86:8f:db', 'c6:5c:39:1e:eb:ff', 'a2:4b:76:58:39:e0', '02:fd:2e:86:41:9e', '56:b4:1c:05:40:da', '2e:fb:71:5c:42:eb', '7e:45:01:95:59:60', '92:94:8d:10:41:f5', '4e:8b:13:6a:90:75', '06:4e:85:02:08:f7', 'ca:97:a8:e1:8b:67', '42:f5:40:0b:9c:ce', 'be:87:46:23:ce:94', '92:23:be:18:8b:36', '3e:53:43:a9:6f:2b', 'ce:a0:15:8d:d5:d3', '92:dc:a2:90:d6:55', '62:16:95:c5:31:06', 'ba:70:0b:a1:17:b5', '72:eb:d1:c9:18:5f', '8e:6e:86:f0:b1:45', '9a:3c:1d:21:f7:f1', '62:aa:3d:c4:53:b0', 'e6:d8:e2:2a:fe:eb', '3a:aa:4a:4d:aa:40', '52:e7:76:14:87:d6', '52:13:1d:c5:10:b4', '62:34:1d:e4:5d:f9', 'da:ff:22:b1:b6:a4', 'c6:b5:73:80:4f:f5', '8e:3a:6a:a5:69:12', 'a6:ff:4f:2c:5f:f3', 'ea:5d:d5:88:90:a1', 'e2:cc:a1:51:cf:11', '6e:cf:11:8a:bc:59']
+SSID: []
+Number of different MAC address: 136
+Number of packets sent: 216
+Number of different bursts sent: 136
+
+Device 6 information:
+Vendor: Samsung
+Model: note20ultra
+Use randomization: 1
+MAC address: ['f2:27:c5:03:38:cb', '16:ff:75:c7:c3:92', 'd2:c1:41:bc:b0:56', '8a:70:b1:05:1f:73', 'a6:3c:9f:d6:9d:c6', '46:1e:21:f1:50:ed', '26:86:39:04:cf:29', 'c6:6a:59:94:79:2a', 'ca:51:79:9c:f4:af', 'fe:c4:01:01:20:58', '3e:c7:50:d2:aa:de', 'b2:34:ba:3b:21:e5', 'aa:5e:11:38:83:58', '66:b3:9d:ba:38:9f', 'b6:93:a6:d0:a9:d2', '0a:29:70:ab:9f:cd', 'da:3e:3a:0a:87:2b', 'c2:fe:ab:94:f7:a7', 'aa:17:83:aa:2f:ff', 'ea:4d:c9:6a:6d:79', '8e:df:c7:6a:b2:a0', 'a6:ee:c7:40:a5:be', 'ba:c6:23:20:c8:15', 'd2:60:81:6b:89:cc', '0a:12:b5:35:09:93', '16:9d:02:3e:59:9c', '1e:7b:6e:64:24:f2', '46:6d:fd:02:bd:71', 'ba:37:80:bd:96:d0', '26:fa:42:2b:fe:72', '1a:e7:c0:cc:ba:7e', '5a:5f:5c:4b:f1:f9', '56:d0:ef:4c:5f:1a', '9e:b8:0a:34:55:aa', '4e:d8:f9:87:9f:51', '12:59:96:81:bc:5c', 'b2:27:2b:f9:f4:41']
+SSID: []
+Number of different MAC address: 37
+Number of packets sent: 72
+Number of different bursts sent: 37
+
++++++++++++Simulation end+++++++++++
+End time (real): 2023-08-30 10:23:08.089084
+End time (simulated): 2023-08-30 10:32:50.554302
+Time ratio (simulated/real): 5.85
+List of devices and statistics
+
+Total number of different MAC addresses: 709
+Total number of packets sent: 1762
