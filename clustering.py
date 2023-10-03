@@ -22,6 +22,7 @@ if __name__ == "__main__":
     parser.add_argument("--epsilon", type=int, default=4, help="Epsilon parameter for DBSCAN clustering.")
     parser.add_argument("--min_samples", type=int, default=15, help="Min samples parameter for DBSCAN clustering.")
     parser.add_argument("--dbscan_metric", type=str, default="euclidean", help="Metric parameter for DBSCAN clustering.")
+    parser.add_argument("--rate_modality", type=str, default="mean_rate", choices=["locked_rate", "awake_rate", "active_rate", "mean_rate"], help="Choose the rate to get from the database. The possibilities are: locked_rate, awake_rate, active_rate or mean_rate.")
     opt = vars(parser.parse_args())
 
     file = opt["input_file"]
@@ -32,6 +33,7 @@ if __name__ == "__main__":
     epsilon = opt["epsilon"]
     min_samples = opt["min_samples"]
     dbscan_metric = opt["dbscan_metric"]
+    rate_modality = opt["rate_modality"]
 
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger()
@@ -42,7 +44,7 @@ if __name__ == "__main__":
     with open("devices.json", "r") as fr:
         hash_dict = json.load(fr)
 
-    rates_dict = {hash_dict[k]["id"]: (hash_dict[k]["cap_id"], hash_dict[k]["mean_rate"]) for k in hash_dict.keys()}
+    rates_dict = {hash_dict[k]["id"]: (hash_dict[k]["cap_id"], hash_dict[k][rate_modality]) for k in hash_dict.keys()}
 
     logger.info("Reading pcap file")
     capture = pyshark.FileCapture(file)
@@ -106,7 +108,6 @@ if __name__ == "__main__":
         # Perform DBSCAN
         dbscan = DBSCAN(eps=epsilon, min_samples=min_samples, metric=dbscan_metric)
         cluster_labels = list(dbscan.fit(df).labels_)
-        print(cluster_labels)
         cluster_tmp = list()
         values_tmp = list()
         # Filter the noise group
