@@ -13,6 +13,8 @@ FIELDS_NAME = ["wlan.extcap", "wlan.ht", "wlan.vht"]
 
 if __name__ == "__main__":
 
+    start_time = datetime.datetime.now().timestamp()
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_file", type=str, default="./input.pcap", help="Path for the .pcap trace.")
     parser.add_argument("--max_ratio", type=int, default=100, help="Maximum Ratio for clustering algorithm.")
@@ -37,8 +39,6 @@ if __name__ == "__main__":
 
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger()
-
-    start_time = datetime.datetime.now().timestamp()
 
     # Read the device-model database
     with open("devices.json", "r") as fr:
@@ -151,8 +151,8 @@ if __name__ == "__main__":
 
         cluster_devices +=  sum(device_numbers.values())
 
-    logging.info(f"Devices detected with set: {set_devices}")
-    logging.info(f"Devices detected with clustering: {cluster_devices}")
+    logging.info(f"Devices that use globally unique MAC addresses: {set_devices}")
+    logging.info(f"Devices that use locally administered MAC addresses: {cluster_devices}")
     total_devices = set_devices + cluster_devices
     logger.info(f"Total device detected: {total_devices}")
     end_time = datetime.datetime.now().timestamp()
