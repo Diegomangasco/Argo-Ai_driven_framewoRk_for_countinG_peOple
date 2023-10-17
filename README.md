@@ -65,3 +65,17 @@ Example usage:
 ```shell
 python ARGO.py --input_file ./example.pcap --max_ratio 100 --power_threshold -70 --default_counter 1 --min_percentage 0.02 --epsilon 4 --min_samples 15 --dbscan_metric euclidean --rate_modality mean_rate
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. The MIT License is a permissive open-source license that allows you to use, modify, and distribute this code, subject to certain conditions.
+
+### MIT License Summary
+
+- **Permissions:** This license allows you to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software.
+- **Conditions:** You must include the original copyright notice and the MIT License text in all copies or substantial portions of the software.
+- **Liability:** The software is provided "as is," and the authors are not liable for any damages or issues arising from the use of the software.
+
+For the full text of the MIT License, please see the [LICENSE](LICENSE) file in this project.
+
+
