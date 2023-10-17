@@ -2,6 +2,11 @@
 
 This Python script is designed to analyze wireless network traffic captured in a PCAP file and count devices that use either globally unique MAC addresses or locally administered MAC addresses. It also performs clustering of devices based on their network capabilities.
 
+## Files
+
+- `ARGO.py`: The main Python script responsible for device counting and clustering based on network traffic in a PCAP file.
+- `models.json`: A JSON file that serves as a device-model database, containing information about different devices and their capabilities.
+
 ## Dependencies
 
 - `datetime`: For time-related functions.
