@@ -1,4 +1,4 @@
-# ARGO - Wireless Device Counting and Clustering
+# ARGO - Wireless People Counting Framework
 
 This Python script is designed to analyze wireless network traffic captured in a PCAP file and count devices that use either globally unique MAC addresses or locally administered MAC addresses. It also performs clustering of devices based on their network capabilities.
 
