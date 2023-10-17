@@ -4,7 +4,7 @@ This Python script is designed to analyze wireless network traffic captured in a
 
 ## Files
 
-- `ARGO.py`: The main Python script responsible for device counting and clustering based on network traffic in a PCAP file.
+- `argo.py`: The main Python script responsible for device counting and clustering based on network traffic in a PCAP file.
 - `models.json`: A JSON file that serves as a device-model database, containing information about different devices and their capabilities.
 
 ## Dependencies
@@ -41,7 +41,7 @@ The script accepts the following command-line arguments:
 ## Code Execution
 
 1. The script starts by parsing the command-line arguments.
-2. It reads a device-model database from a JSON file named "devices.json."
+2. It reads a device-model database from a JSON file named "models.json."
 3. It initializes variables for counting and clustering devices.
 4. The script reads and processes packets from the PCAP file.
 5. It checks the signal power of each packet and discards packets with power below the threshold.
@@ -63,7 +63,7 @@ The script generates log information about the devices using globally unique MAC
 Example usage:
 
 ```shell
-python ARGO.py --input_file ./example.pcap --max_ratio 100 --power_threshold -70 --default_counter 1 --min_percentage 0.02 --epsilon 4 --min_samples 15 --dbscan_metric euclidean --rate_modality mean_rate
+python argo.py --input_file ./example.pcap --max_ratio 100 --power_threshold -70 --default_counter 1 --min_percentage 0.02 --epsilon 4 --min_samples 15 --dbscan_metric euclidean --rate_modality mean_rate
 ```
 
 ## License
