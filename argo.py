@@ -41,7 +41,7 @@ if __name__ == "__main__":
     logger = logging.getLogger()
 
     # Read the device-model database
-    with open("devices.json", "r") as fr:
+    with open("./models.json", "r") as fr:
         hash_dict = json.load(fr)
 
     rates_dict = {hash_dict[k]["id"]: (hash_dict[k]["cap_id"], hash_dict[k][rate_modality]) for k in hash_dict.keys()}
