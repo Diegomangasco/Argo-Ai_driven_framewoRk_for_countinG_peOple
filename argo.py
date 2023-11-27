@@ -5,8 +5,11 @@ import pyshark
 import logging
 import json
 import pandas as pd
+from collections import defaultdict
 from scipy import spatial
 from sklearn.cluster import DBSCAN
+from statistics import mean
+from bloomfilter_operations import *
 
 LAYERS = 4
 FIELDS_NAME = ["wlan.extcap", "wlan.ht", "wlan.vht"]
@@ -46,13 +49,18 @@ if __name__ == "__main__":
 
     rates_dict = {hash_dict[k]["id"]: (hash_dict[k]["cap_id"], hash_dict[k][rate_modality]) for k in hash_dict.keys()}
 
+    logger.info("Creating Bloom Filter structure")
+    # BF Creation
+    main_bf = BloomFilter(10000,7)
+    # Anonymization Noise
+    main_bf.anonymization_noise(30)
+
     logger.info("Reading pcap file")
     capture = pyshark.FileCapture(file)
 
     flat_time = datetime.datetime.timestamp(capture[0].sniff_time)
     TIME_WINDOW = 0
     pkt_counter = 0
-    global_set = set()
     global_counter = 0
     values_list = list()
     df = pd.DataFrame([])
@@ -73,8 +81,9 @@ if __name__ == "__main__":
         # Check the nature of MAC address
         if (first_octet & 2) == 0:
             # Globally unique
-            global_set.add(src_mac)
-            global_counter += 1
+            if not main_bf.check(src_mac):
+                main_bf.add(src_mac)
+                global_counter += 1
             continue
         for i in range(LAYERS):
             layer = pkt.layers[i]
@@ -98,8 +107,6 @@ if __name__ == "__main__":
         )
         values_list.append(values)
 
-    # Count the global MAC addresses
-    set_devices = len(global_set)
     cluster_devices = 0
 
     # Check that at least the 2% of packets have a locally administered MAC address
@@ -110,12 +117,22 @@ if __name__ == "__main__":
         cluster_labels = list(dbscan.fit(df).labels_)
         cluster_tmp = list()
         values_tmp = list()
+        cluster_mac = defaultdict(list)
         # Filter the noise group
         for i, x in enumerate(cluster_labels):
             if x != -1:
+                cluster_mac[x].append(mac_list[i])
                 cluster_tmp.append(x)
                 values_tmp.append(values_list[i])
 
+        # Insert the MAC address averages inside the Bloom Filter
+        list_macs_mean = [mean([int(elem.replace(":", ""), 16) for elem in cluster_mac[k]]) for k in cluster_mac.keys()]
+
+        # Fill the Bloom Filter
+        for elem in list_macs_mean:
+            #Insert the mean value but casted as string because mmh3 hash functions wants a bytes object
+            main_bf.add(str(elem))
+        
         cluster_labels = cluster_tmp
         values_list = values_tmp
         cluster_values = {cl: [] for cl in set(cluster_labels)}
@@ -125,8 +142,9 @@ if __name__ == "__main__":
             cluster_values[cluster].append(val)
 
         # Perform the average of the VHT, Extended and HT capabilities inside clusters
-        for key, value in cluster_values.items():
-            cluster_values[key] = [sum(sub_list) / len(sub_list) for sub_list in zip(*value)]
+        cluster_values = {
+            key: [sum(sub_list) / len(sub_list) for sub_list in zip(*value)] for key, value in cluster_values.items()
+        }
 
         logger.info("Counting devices")
         device_numbers = dict()
