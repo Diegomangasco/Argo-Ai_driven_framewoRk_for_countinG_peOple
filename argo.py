@@ -61,9 +61,9 @@ if __name__ == "__main__":
     flat_time = datetime.datetime.timestamp(capture[0].sniff_time)
     TIME_WINDOW = 0
     pkt_counter = 0
-    global_unique_counter = 0
     values_list = list()
     df = pd.DataFrame([])
+    global_set = set()
     cluster_counter = 0
 
     logger.info("Parsing packets")
@@ -81,9 +81,9 @@ if __name__ == "__main__":
         # Check the nature of MAC address
         if (first_octet & 2) == 0:
             # Globally unique
+            global_set.add(src_mac)
             if not main_bf.check(src_mac):
                 main_bf.add(src_mac)
-                global_unique_counter += 1
             continue
         for i in range(LAYERS):
             layer = pkt.layers[i]
@@ -169,9 +169,9 @@ if __name__ == "__main__":
 
         cluster_devices +=  sum(device_numbers.values())
 
-    logging.info(f"Devices that use globally unique MAC addresses: {global_unique_counter}")
+    logging.info(f"Devices that use globally unique MAC addresses: {len(global_set)}")
     logging.info(f"Devices that use locally administered MAC addresses: {cluster_devices}")
-    total_devices = global_unique_counter + cluster_devices
+    total_devices = len(global_set) + cluster_devices
     logger.info(f"Total device detected: {total_devices}")
     end_time = datetime.datetime.now().timestamp()
 
