@@ -156,6 +156,9 @@ if __name__ == "__main__":
                 values_tmp.append(values_list[i])
 
         bloom_filter_insertion(main_bf, cluster_mac)
+        # Generate a dictionary to store all the single MAC addresses associated with a certain device model
+        cluster_mac_set = {k: set(v) for k, v in cluster_mac.items()}
+
         cluster_labels = cluster_tmp
         values_list = values_tmp
         cluster_values = {cl: [] for cl in set(cluster_labels)}
@@ -190,6 +193,9 @@ if __name__ == "__main__":
             else:
                 device_numbers[key] = default_counter
 
+            if device_numbers[key] > len(cluster_mac_set[key]):
+                device_numbers[key] = len(cluster_mac_set[key])
+
         cluster_devices += sum(device_numbers.values())
 
         logger.info("Associating global MAC addresses with a cluster")
@@ -200,10 +206,7 @@ if __name__ == "__main__":
                 distances.append((k2, tmp))
             min_k = min(distances, key=lambda x: x[1])
             # Add the global MAC address k1 to a cluster
-            cluster_mac[min_k[0]].append(k1)
-
-        # Generate a dictionary to store all the single MAC addresses associated with a certain device model
-        cluster_mac_set = {k: set(v) for k, v in cluster_mac.items()}
+            cluster_mac_set[min_k[0]].add(k1)
 
     logging.info(f"Devices that use globally unique MAC addresses: {global_counter}")
     logging.info(f"Devices that use locally administered MAC addresses: {cluster_devices}")
