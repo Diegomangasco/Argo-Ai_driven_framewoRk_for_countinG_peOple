@@ -6,6 +6,8 @@ This Python script is designed to analyze wireless network traffic captured in a
 
 - `argo.py`: The main Python script responsible for device counting and clustering based on network traffic in a PCAP file.
 - `models.json`: A JSON file that serves as a device-model database, containing information about different devices and their capabilities.
+- `bloomfilter.py`: Python script containing the basic logic about Bloom Filter data structure.
+- `bloomfilter_operations.py`: Python script containing the advanced logic about Bloom Filter data structure.
 
 ## Dependencies
 
@@ -18,6 +20,10 @@ This Python script is designed to analyze wireless network traffic captured in a
 - `pandas`: Provides data structures for efficient data manipulation.
 - `scipy.spatial`: For calculating distances between data points.
 - `sklearn.cluster.DBSCAN`: Implements the DBSCAN clustering algorithm.
+- `bitarray`: Used to manage the Bloom Filter bit-array.
+- `mmh3`: Provides the logic to use MurMur Hashing for Bloom Filter.
+- `math`: Includes some useful math operations.
+- `numpy`: For managing multi-dimensional arrays.
 
 ## Constants and Configuration
 

@@ -1,5 +1,4 @@
 import datetime
-import sys
 import argparse
 import pyshark
 import logging
@@ -14,6 +13,46 @@ from bloomfilter_operations import *
 LAYERS = 4
 FIELDS_NAME = ["wlan.extcap", "wlan.ht", "wlan.vht"]
 
+
+def bloom_filter_insertion(main_bf, cluster_mac):
+    # Insert the MAC address averages inside the Bloom Filter
+    list_macs_mean = [mean([int(elem.replace(":", ""), 16) for elem in cluster_mac[k]]) for k in cluster_mac.keys()]
+
+    # Fill the Bloom Filter
+    for elem in list_macs_mean:
+        # Insert the mean value but cast as string because mmh3 hash functions wants a bytes object
+        main_bf.add(str(elem))
+
+
+def create_triplet(df, pkt):
+    if df is None:
+        df = pd.DataFrame([])
+    vht_cap = 0
+    ext_cap = 0
+    ht_cap = 0
+    for i in range(LAYERS):
+        layer = pkt.layers[i]
+        keys = list(filter(lambda t: any([f for f in FIELDS_NAME if f in t]), layer._all_fields.keys()))
+        # Collect the values for VHT, Extended and HT capabilities
+        for k in keys:
+            value = str(layer._all_fields.get(k))
+            if not any([i for i in ["Rx", "VHT"] if i in value]):
+                value = int(float.fromhex(value))
+                if "wlan.vht" in k:
+                    vht_cap += value
+                elif "wlan.extcap" in k:
+                    ext_cap += value
+                elif "wlan.ht" in k:
+                    ht_cap += value
+    values = [vht_cap, ext_cap, ht_cap]
+    new_df = pd.DataFrame({"vht_cap": [values[0]], "ext_cap": [values[1]], "ht_cap": [values[2]]})
+    df = pd.concat(
+        [df, new_df],
+        ignore_index=True
+    )
+    return values, df
+
+
 if __name__ == "__main__":
 
     start_time = datetime.datetime.now().timestamp()
@@ -22,12 +61,17 @@ if __name__ == "__main__":
     parser.add_argument("--input_file", type=str, default="./input.pcap", help="Path for the .pcap trace.")
     parser.add_argument("--max_ratio", type=int, default=100, help="Maximum Ratio for clustering algorithm.")
     parser.add_argument("--power_threshold", type=int, default=-70, help="Threshold for the capturing power.")
-    parser.add_argument("--default_counter", type=int, default=1, help="Default number assigned to a cluster if the condition on the Maximum Ratio is not respected.")
-    parser.add_argument("--min_percentage", type=float, default=0.02, help="Minimum percentage of probe request that must have locally administered MAC address for doing clustering.")
+    parser.add_argument("--default_counter", type=int, default=1,
+                        help="Default number assigned to a cluster if the condition on the Maximum Ratio is not respected.")
+    parser.add_argument("--min_percentage", type=float, default=0.02,
+                        help="Minimum percentage of probe request that must have locally administered MAC address for doing clustering.")
     parser.add_argument("--epsilon", type=int, default=4, help="Epsilon parameter for DBSCAN clustering.")
     parser.add_argument("--min_samples", type=int, default=15, help="Min samples parameter for DBSCAN clustering.")
-    parser.add_argument("--dbscan_metric", type=str, default="euclidean", help="Metric parameter for DBSCAN clustering.")
-    parser.add_argument("--rate_modality", type=str, default="mean_rate", choices=["locked_rate", "awake_rate", "active_rate", "mean_rate"], help="Choose the rate to get from the database. The possibilities are: locked_rate, awake_rate, active_rate or mean_rate.")
+    parser.add_argument("--dbscan_metric", type=str, default="euclidean",
+                        help="Metric parameter for DBSCAN clustering.")
+    parser.add_argument("--rate_modality", type=str, default="mean_rate",
+                        choices=["locked_rate", "awake_rate", "active_rate", "mean_rate"],
+                        help="Choose the rate to get from the database. The possibilities are: locked_rate, awake_rate, active_rate or mean_rate.")
     opt = vars(parser.parse_args())
 
     file = opt["input_file"]
@@ -51,7 +95,7 @@ if __name__ == "__main__":
 
     logger.info("Creating Bloom Filter structure")
     # BF Creation
-    main_bf = BloomFilter(10000,7)
+    main_bf = BloomFilter(10000, 7)
     # Anonymization Noise
     main_bf.anonymization_noise(30)
 
@@ -62,6 +106,9 @@ if __name__ == "__main__":
     TIME_WINDOW = 0
     pkt_counter = 0
     values_list = list()
+    local_mac_list = list()
+    global_mac_list = list()
+    global_values_dict = dict()
     df = pd.DataFrame([])
     global_counter = 0
     cluster_counter = 0
@@ -72,9 +119,6 @@ if __name__ == "__main__":
         if int(pkt.layers[1]._all_fields.get("wlan_radio.signal_dbm")) <= power_threshold:
             continue
         pkt_counter += 1
-        vht_cap = 0
-        ext_cap = 0
-        ht_cap = 0
         TIME_WINDOW = datetime.datetime.timestamp(pkt.sniff_time) - flat_time
         src_mac = pkt.layers[2]._all_fields.get("wlan.ta")
         first_octet = int(float.fromhex(src_mac.split(":")[0][1]))
@@ -83,34 +127,20 @@ if __name__ == "__main__":
             # Globally unique
             if not main_bf.check(src_mac):
                 main_bf.add(src_mac)
+            if src_mac not in global_mac_list:
                 global_counter += 1
+                global_mac_list.append(src_mac)
+                values, _ = create_triplet(None, pkt)
+                global_values_dict[src_mac] = values
             continue
-        for i in range(LAYERS):
-            layer = pkt.layers[i]
-            keys = list(filter(lambda t: any([f for f in FIELDS_NAME if f in t]), layer._all_fields.keys()))
-            # Collect the values for VHT, Extended and HT capabilities
-            for k in keys:
-                value = str(layer._all_fields.get(k))
-                if not any([i for i in ["Rx", "VHT"] if i in value]):
-                    value = int(float.fromhex(value))
-                    if "wlan.vht" in k:
-                        vht_cap += value
-                    elif "wlan.extcap" in k:
-                        ext_cap += value
-                    elif "wlan.ht" in k:
-                        ht_cap += value
-        values = [vht_cap, ext_cap, ht_cap]
-        new_df = pd.DataFrame({"vht_cap": [values[0]], "ext_cap": [values[1]], "ht_cap": [values[2]]})
-        df = pd.concat(
-            [df, new_df],
-            ignore_index=True
-        )
+        values, df = create_triplet(df, pkt)
         values_list.append(values)
+        local_mac_list.append(src_mac)
 
     cluster_devices = 0
 
     # Check that at least the 2% of packets have a locally administered MAC address
-    if (pkt_counter - global_counter) > min_percentage*pkt_counter:
+    if (pkt_counter - global_counter) > min_percentage * pkt_counter:
         logger.info("Model clustering")
         # Perform DBSCAN
         dbscan = DBSCAN(eps=epsilon, min_samples=min_samples, metric=dbscan_metric)
@@ -121,18 +151,11 @@ if __name__ == "__main__":
         # Filter the noise group
         for i, x in enumerate(cluster_labels):
             if x != -1:
-                cluster_mac[x].append(mac_list[i])
+                cluster_mac[x].append(local_mac_list[i])
                 cluster_tmp.append(x)
                 values_tmp.append(values_list[i])
 
-        # Insert the MAC address averages inside the Bloom Filter
-        list_macs_mean = [mean([int(elem.replace(":", ""), 16) for elem in cluster_mac[k]]) for k in cluster_mac.keys()]
-
-        # Fill the Bloom Filter
-        for elem in list_macs_mean:
-            #Insert the mean value but casted as string because mmh3 hash functions wants a bytes object
-            main_bf.add(str(elem))
-        
+        bloom_filter_insertion(main_bf, cluster_mac)
         cluster_labels = cluster_tmp
         values_list = values_tmp
         cluster_values = {cl: [] for cl in set(cluster_labels)}
@@ -153,9 +176,9 @@ if __name__ == "__main__":
             # Choose the closest device with similar characteristics
             min_dist = rates_dict[
                 min(rates_dict.keys(), key=lambda k: spatial.distance.euclidean(rates_dict[k][0], cluster_values[key]))
-                ][0]
+            ][0]
             closest_rates = [rates_dict[k][1] for k in rates_dict.keys() if min_dist == rates_dict[k][0]]
-            L = sum(closest_rates)/len(closest_rates)
+            L = sum(closest_rates) / len(closest_rates)
             # Number of packets inside the cluster
             N = len(list(filter(lambda k: k == key, cluster_labels)))
             # Capture time window
@@ -167,12 +190,26 @@ if __name__ == "__main__":
             else:
                 device_numbers[key] = default_counter
 
-        cluster_devices +=  sum(device_numbers.values())
+        cluster_devices += sum(device_numbers.values())
 
-    logging.info(f"Devices that use globally unique MAC addresses: {len(global_counter)}")
+        logger.info("Associating global MAC addresses with a cluster")
+        for k1 in global_values_dict.keys():
+            distances = list()
+            for k2 in cluster_values.keys():
+                tmp = spatial.distance.euclidean(global_values_dict[k1], cluster_values[k2])
+                distances.append((k2, tmp))
+            min_k = min(distances, key=lambda x: x[1])
+            # Add the global MAC address k1 to a cluster
+            cluster_mac[min_k[0]].append(k1)
+
+        # Generate a dictionary to store all the single MAC addresses associated with a certain device model
+        cluster_mac_set = {k: set(v) for k, v in cluster_mac.items()}
+
+    logging.info(f"Devices that use globally unique MAC addresses: {global_counter}")
     logging.info(f"Devices that use locally administered MAC addresses: {cluster_devices}")
     total_devices = global_counter + cluster_devices
     logger.info(f"Total device detected: {total_devices}")
+
     end_time = datetime.datetime.now().timestamp()
 
     logger.info(f"End counting, total time: {round(end_time - start_time, 2)} seconds")
