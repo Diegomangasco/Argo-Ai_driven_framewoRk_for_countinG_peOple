@@ -116,7 +116,7 @@ if __name__ == "__main__":
     logger.info("Parsing packets")
     for pkt in capture:
         # Check if the signal power is sufficient
-        if int(pkt.layers[1]._all_fields.get("wlan_radio.signal_dbm")) <= power_threshold:
+        if len(pkt.layers) < 2 or int(pkt.layers[1]._all_fields.get("wlan_radio.signal_dbm")) <= power_threshold:
             continue
         pkt_counter += 1
         TIME_WINDOW = datetime.datetime.timestamp(pkt.sniff_time) - flat_time
