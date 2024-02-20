@@ -65,7 +65,7 @@ if __name__ == "__main__":
                         help="Default number assigned to a cluster if the condition on the Maximum Ratio is not respected.")
     parser.add_argument("--min_percentage", type=float, default=0.02,
                         help="Minimum percentage of probe request that must have locally administered MAC address for doing clustering.")
-    parser.add_argument("--epsilon", type=int, default=4, help="Epsilon parameter for DBSCAN clustering.")
+    parser.add_argument("--epsilon", type=int, default=0.001, help="Epsilon parameter for DBSCAN clustering.")
     parser.add_argument("--min_samples", type=int, default=15, help="Min samples parameter for DBSCAN clustering.")
     parser.add_argument("--dbscan_metric", type=str, default="euclidean",
                         help="Metric parameter for DBSCAN clustering.")
