@@ -5,7 +5,7 @@
         "awake_rate": 0.0,
         "active_rate": 0.43,
         "mean_rate": 0.43,
-        "cap_id": [4187128328, 143, 843]
+        "cap_id": [-1, 8, 40, 12]
     },
     "Huawei P9Lite": {
         "id": 2,
@@ -13,7 +13,7 @@
         "awake_rate": 0.32,
         "active_rate": 0.13,
         "mean_rate": 0.08,
-        "cap_id": [0, 138, 916]
+        "cap_id": [-1, 4, 32, 16]
     },
     "Xiaomi Mi9Lite": {
         "id": 3,
@@ -21,7 +21,7 @@
         "awake_rate": 0.28,
         "active_rate": 0.24,
         "mean_rate": 0.26,
-        "cap_id": [2442297858, 141, 843]
+        "cap_id": [92, 9, 24, 11]
     },
     "Xiaomi Note8t": {
         "id": 4,
@@ -29,7 +29,7 @@
         "awake_rate": 0.0,
         "active_rate": 0.06,
         "mean_rate": 0.68,
-        "cap_id": [1905426946, 145, 843]
+        "cap_id": [94, 6, 24, 11]
     },
     "Samsung Note20Ultra": {
         "id": 5,
@@ -37,7 +37,7 @@
         "awake_rate": 0.60,
         "active_rate": 0.16,
         "mean_rate": 0.11,
-        "cap_id": [0, 144, 596]
+        "cap_id": [-1, 8, 32, 10]
     },
     "OnePlus Nord5G": {
         "id": 6,
@@ -45,7 +45,7 @@
         "awake_rate": 3.90,
         "active_rate": 0.54,
         "mean_rate": 0.43,
-        "cap_id": [4052911066, 142, 972]
+        "cap_id": [94, 10, 34, 11]
     },
     "Apple MacPro": {
         "id": 7,
@@ -53,7 +53,7 @@
         "awake_rate": 0.21,
         "active_rate": 0.29,
         "mean_rate": 3.14,
-        "cap_id": [0, 137, 16981]
+        "cap_id": [-1, 3, 48, 10]
     },
     "Apple iPhone14Pro": {
         "id": 8,
@@ -61,7 +61,7 @@
         "awake_rate": 0.44,
         "active_rate": 0.38,
         "mean_rate": 0.22,
-        "cap_id": [0, 149, 16981]
+        "cap_id": [-1, 4, 26, 0]
     },
     "Apple iPhone13Pro": {
         "id": 9,
@@ -69,7 +69,7 @@
         "awake_rate": 0.67,
         "active_rate": 0.84,
         "mean_rate": 0.39,
-        "cap_id": [0, 147, 16981]
+        "cap_id": [-1, 4, 26, 0]
     },
     "Apple iPhone7": {
         "id": 10,
@@ -77,7 +77,7 @@
         "awake_rate": 1.01,
         "active_rate": 1.26,
         "mean_rate": 0.67,
-        "cap_id": [0, 140, 16976]
+        "cap_id": [-1, 4, 26, 0]
     },
     "Apple MacM1": {
         "id": 11,
@@ -85,7 +85,7 @@
         "awake_rate": 0.0,
         "active_rate": 0.11,
         "mean_rate": 0.11,
-        "cap_id": [0, 140, 16981]
+        "cap_id": [-1, 3, 34, 0]
     },
     "Apple iPad8": {
         "id": 12,
@@ -93,7 +93,7 @@
         "awake_rate": 0.0,
         "active_rate": 0.23,
         "mean_rate": 0.23,
-        "cap_id": [0, 140, 16981]
+        "cap_id": [-1, 3, 34, 0]
     },
     "Apple iPhone6": {
         "id": 13,
@@ -101,7 +101,7 @@
         "awake_rate": 0.47,
         "active_rate": 0.59,
         "mean_rate": 0.32,
-        "cap_id": [0, 139, 16981]
+        "cap_id": [-1, 6, 22, 10]
     },
     "Apple iPhone11": {
         "id": 14,
@@ -109,6 +109,6 @@
         "awake_rate": 0.30,
         "active_rate": 0.37,
         "mean_rate": 0.22,
-        "cap_id": [0, 139, 16981]
+        "cap_id": [-1, 3, 26, 0]
     }
 }

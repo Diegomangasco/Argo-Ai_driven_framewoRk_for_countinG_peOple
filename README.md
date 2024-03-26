@@ -29,6 +29,7 @@ This Python script is designed to analyze wireless network traffic captured in a
 
 - `LAYERS`: The number of protocol layers to analyze in each packet.
 - `FIELDS_NAME`: A list of field names to be extracted from packet layers.
+- `HEX_DICTIONARY`: A dictionary to convert hexadecimal values to binary.
 
 ## Command Line Arguments
 
@@ -41,8 +42,10 @@ The script accepts the following command-line arguments:
 - `--min_percentage`: Minimum percentage of probe requests with locally administered MAC addresses for clustering.
 - `--epsilon`: Epsilon parameter for DBSCAN clustering.
 - `--min_samples`: Min samples parameter for DBSCAN clustering.
-- `--dbscan_metric`: Metric parameter for DBSCAN clustering.
+- `--distance_metric`: Metric parameter for clustering.
 - `--rate_modality`: Choose the rate to extract from the database.
+- `--clustering_method`: Clustering method, the possible choices are `dbscan` and `optics`.
+- `--counting_method`: Counting method when a cluster is examined, the possible choices are `simple` and `advanced`.
 
 ## Code Execution
 
@@ -55,7 +58,7 @@ The script accepts the following command-line arguments:
 7. It categorizes MAC addresses as globally unique or locally administered.
 8. The script collects information about VHT, Extended, and HT capabilities for clustering.
 9. It counts devices with globally unique MAC addresses and checks if the minimum percentage condition for clustering is met.
-10. If clustering is performed, it uses DBSCAN to cluster devices based on their capabilities.
+10. If clustering is performed, it uses DBSCAN or OPTICS to cluster devices based on their capabilities.
 11. The script calculates the average capabilities within each cluster.
 12. It estimates the number of devices within each cluster and counts them.
 13. Finally, the script logs information about the number of devices detected.
@@ -69,8 +72,17 @@ The script generates log information about the devices using globally unique MAC
 Example usage:
 
 ```shell
-python argo.py --input_file ./example.pcap --max_ratio 100 --power_threshold -70 --default_counter 1 --min_percentage 0.02 --epsilon 4 --min_samples 15 --dbscan_metric euclidean --rate_modality mean_rate
+python argo.py --input_file ./example.pcap --max_ratio 100 --power_threshold -70 --default_counter 1 --min_percentage 0.02 --epsilon 4 --min_samples 15 --dbscan_metric euclidean --rate_modality mean_rate --clustering_method dbscan --counting_method advanced
 ```
+
+## Authors
+
+All the authors are researchers or master's students at the Politecnico di Torino, Italy.
+
+- **Alex Carluccio** - *Master's student* -
+- **Diego Gasco** - *Researcher* -
+- **Giuseppe Perrone** - *Master's student* -
+- **Riccardo Rusca** - *Researcher* -
 
 ## License
 

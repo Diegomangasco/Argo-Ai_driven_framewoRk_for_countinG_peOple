@@ -6,12 +6,20 @@ import json
 import pandas as pd
 from collections import defaultdict
 from scipy import spatial
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import OPTICS
 from statistics import mean
 from bloomfilter_operations import *
 
 LAYERS = 4
-FIELDS_NAME = ["wlan.extcap", "wlan.ht", "wlan.vht"]
+FIELDS_NAME = ["wlan.extcap", "wlan.ht", "wlan.vht", "vendor", "oui"]
+HEX_DICTIONARY = {
+    "a": 10,
+    "b": 11,
+    "c": 12,
+    "d": 13,
+    "e": 14,
+    "f": 15,
+}
 
 
 def bloom_filter_insertion(main_bf, cluster_mac):
@@ -27,9 +35,10 @@ def bloom_filter_insertion(main_bf, cluster_mac):
 def create_triplet(df, pkt):
     if df is None:
         df = pd.DataFrame([])
-    vht_cap = 0
-    ext_cap = 0
-    ht_cap = 0
+    vht_cap = -1
+    ext_cap = -1
+    ht_cap = -1
+    vendor_specific = -1
     for i in range(LAYERS):
         layer = pkt.layers[i]
         keys = list(filter(lambda t: any([f for f in FIELDS_NAME if f in t]), layer._all_fields.keys()))
@@ -37,15 +46,36 @@ def create_triplet(df, pkt):
         for k in keys:
             value = str(layer._all_fields.get(k))
             if not any([i for i in ["Rx", "VHT"] if i in value]):
-                value = int(float.fromhex(value))
+                if any([j for j in [":", "0x"] if j in value]):
+                    value = value.replace(":", "")
+                    value = value.replace("0x", "")
+                sum = 0
+                for ch in value:
+                    ch = ch.lower()
+                    if ch in HEX_DICTIONARY.keys():
+                        ch = HEX_DICTIONARY[ch]
+                    ones = bin(int(ch)).count("1")
+                    sum += ones
+                value = sum
                 if "wlan.vht" in k:
+                    if vht_cap == -1:
+                        vht_cap = 0
                     vht_cap += value
                 elif "wlan.extcap" in k:
+                    if ext_cap == -1:
+                        ext_cap = 0
                     ext_cap += value
                 elif "wlan.ht" in k:
+                    if ht_cap == -1:
+                        ht_cap = 0
                     ht_cap += value
-    values = [vht_cap, ext_cap, ht_cap]
-    new_df = pd.DataFrame({"vht_cap": [values[0]], "ext_cap": [values[1]], "ht_cap": [values[2]]})
+                elif "vendor" or "oui" in k:
+                    if vendor_specific == -1:
+                        vendor_specific = 0
+                    vendor_specific += value
+    values = [vht_cap, ext_cap, ht_cap, vendor_specific]
+    new_df = pd.DataFrame(
+        {"vht_cap": [values[0]], "ext_cap": [values[1]], "ht_cap": [values[2]], "vendor": [values[3]]})
     df = pd.concat(
         [df, new_df],
         ignore_index=True
@@ -66,12 +96,16 @@ if __name__ == "__main__":
     parser.add_argument("--min_percentage", type=float, default=0.02,
                         help="Minimum percentage of probe request that must have locally administered MAC address for doing clustering.")
     parser.add_argument("--epsilon", type=int, default=0.001, help="Epsilon parameter for DBSCAN clustering.")
-    parser.add_argument("--min_samples", type=int, default=15, help="Min samples parameter for DBSCAN clustering.")
-    parser.add_argument("--dbscan_metric", type=str, default="euclidean",
-                        help="Metric parameter for DBSCAN clustering.")
+    parser.add_argument("--min_samples", type=int, default=15, help="Min samples parameter for clustering.")
+    parser.add_argument("--distance_metric", type=str, default="euclidean",
+                        help="Metric parameter for clustering.")
     parser.add_argument("--rate_modality", type=str, default="mean_rate",
                         choices=["locked_rate", "awake_rate", "active_rate", "mean_rate"],
                         help="Choose the rate to get from the database. The possibilities are: locked_rate, awake_rate, active_rate or mean_rate.")
+    parser.add_argument("--cluster_method", type=str, choices=["dbscan", "optics"], default="optics",
+                        help="Clustering method, the possible choices are dbscan and optics.")
+    parser.add_argument("--counting_method", type=str, choices=["simple", "advanced"], default="simple",
+                        help="Counting method when a cluster is examined, the possible choices are simple and advanced.")
     opt = vars(parser.parse_args())
 
     file = opt["input_file"]
@@ -81,8 +115,10 @@ if __name__ == "__main__":
     min_percentage = opt["min_percentage"]
     epsilon = opt["epsilon"]
     min_samples = opt["min_samples"]
-    dbscan_metric = opt["dbscan_metric"]
+    distance_metric = opt["distance_metric"]
     rate_modality = opt["rate_modality"]
+    cluster_method = opt["cluster_method"]
+    counting_method = opt["counting_method"]
 
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger()
@@ -142,9 +178,12 @@ if __name__ == "__main__":
     # Check that at least the 2% of packets have a locally administered MAC address
     if (pkt_counter - global_counter) > min_percentage * pkt_counter:
         logger.info("Model clustering")
-        # Perform DBSCAN
-        dbscan = DBSCAN(eps=epsilon, min_samples=min_samples, metric=dbscan_metric)
-        cluster_labels = list(dbscan.fit(df).labels_)
+        # Perform the clustering
+        if cluster_method == "optics":
+            clustering = OPTICS(min_samples=min_samples, metric=distance_metric)
+        else:
+            clustering = OPTICS(eps=epsilon, min_samples=min_samples, metric=distance_metric, cluster_method="dbscan")
+        cluster_labels = list(clustering.fit(df).labels_)
         cluster_tmp = list()
         values_tmp = list()
         cluster_mac = defaultdict(list)
@@ -175,28 +214,31 @@ if __name__ == "__main__":
         logger.info("Counting devices")
         device_numbers = dict()
         cluster_devices = 0
-        for key in cluster_values.keys():
-            # Choose the closest device with similar characteristics
-            min_dist = rates_dict[
-                min(rates_dict.keys(), key=lambda k: spatial.distance.euclidean(rates_dict[k][0], cluster_values[key]))
-            ][0]
-            closest_rates = [rates_dict[k][1] for k in rates_dict.keys() if min_dist == rates_dict[k][0]]
-            L = sum(closest_rates) / len(closest_rates)
-            # Number of packets inside the cluster
-            N = len(list(filter(lambda k: k == key, cluster_labels)))
-            # Capture time window
-            T = TIME_WINDOW
-            if N / T < max_ratio:
-                K = N / (L * T)
-                K = round(K)
-                device_numbers[key] = K if K > 0 else 1
-            else:
-                device_numbers[key] = default_counter
+        if counting_method == "advanced":
+            for key in cluster_values.keys():
+                # Choose the closest device with similar characteristics
+                min_dist = rates_dict[
+                    min(rates_dict.keys(), key=lambda k: spatial.distance.euclidean(rates_dict[k][0], cluster_values[key]))
+                ][0]
+                closest_rates = [rates_dict[k][1] for k in rates_dict.keys() if min_dist == rates_dict[k][0]]
+                # If multiple matches are found, take the average rate
+                L = sum(closest_rates) / len(closest_rates)
+                # Number of packets inside the cluster
+                N = len(list(filter(lambda k: k == key, cluster_labels)))
+                # Capture time window
+                T = TIME_WINDOW
+                if N / T < max_ratio:
+                    K = N / (L * T)
+                    K = round(K)
+                    device_numbers[key] = K if K > 0 else 1
+                else:
+                    device_numbers[key] = default_counter
 
-            if device_numbers[key] > len(cluster_mac_set[key]):
-                device_numbers[key] = len(cluster_mac_set[key])
-
-        cluster_devices += sum(device_numbers.values())
+                if device_numbers[key] > len(cluster_mac_set[key]):
+                    device_numbers[key] = len(cluster_mac_set[key])
+            cluster_devices += sum(device_numbers.values())
+        elif counting_method == "simple":
+            cluster_devices = len(set(cluster_values.keys()))
 
         logger.info("Associating global MAC addresses with a cluster")
         for k1 in global_values_dict.keys():
