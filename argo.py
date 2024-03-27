@@ -1,6 +1,7 @@
 import datetime
 import argparse
-import pyshark
+import re
+from scapy.all import rdpcap
 import logging
 import json
 import pandas as pd
@@ -9,17 +10,6 @@ from scipy import spatial
 from sklearn.cluster import OPTICS
 from statistics import mean
 from bloomfilter_operations import *
-
-LAYERS = 4
-FIELDS_NAME = ["wlan.extcap", "wlan.ht", "wlan.vht", "vendor", "oui"]
-HEX_DICTIONARY = {
-    "a": 10,
-    "b": 11,
-    "c": 12,
-    "d": 13,
-    "e": 14,
-    "f": 15,
-}
 
 
 def bloom_filter_insertion(main_bf, cluster_mac):
@@ -32,55 +22,98 @@ def bloom_filter_insertion(main_bf, cluster_mac):
         main_bf.add(str(elem))
 
 
-def create_triplet(df, pkt):
-    if df is None:
-        df = pd.DataFrame([])
-    vht_cap = -1
-    ext_cap = -1
-    ht_cap = -1
-    vendor_specific = -1
-    for i in range(LAYERS):
-        layer = pkt.layers[i]
-        keys = list(filter(lambda t: any([f for f in FIELDS_NAME if f in t]), layer._all_fields.keys()))
-        # Collect the values for VHT, Extended and HT capabilities
-        for k in keys:
-            value = str(layer._all_fields.get(k))
-            if not any([i for i in ["Rx", "VHT"] if i in value]):
-                if any([j for j in [":", "0x"] if j in value]):
-                    value = value.replace(":", "")
-                    value = value.replace("0x", "")
-                sum = 0
-                for ch in value:
-                    ch = ch.lower()
-                    if ch in HEX_DICTIONARY.keys():
-                        ch = HEX_DICTIONARY[ch]
-                    ones = bin(int(ch)).count("1")
-                    sum += ones
-                value = sum
-                if "wlan.vht" in k:
-                    if vht_cap == -1:
-                        vht_cap = 0
-                    vht_cap += value
-                elif "wlan.extcap" in k:
-                    if ext_cap == -1:
-                        ext_cap = 0
-                    ext_cap += value
-                elif "wlan.ht" in k:
-                    if ht_cap == -1:
-                        ht_cap = 0
-                    ht_cap += value
-                elif "vendor" or "oui" in k:
-                    if vendor_specific == -1:
-                        vendor_specific = 0
-                    vendor_specific += value
-    values = [vht_cap, ext_cap, ht_cap, vendor_specific]
-    new_df = pd.DataFrame(
-        {"vht_cap": [values[0]], "ext_cap": [values[1]], "ht_cap": [values[2]], "vendor": [values[3]]})
-    df = pd.concat(
-        [df, new_df],
-        ignore_index=True
-    )
-    return values, df
+def process_input_string(input_string):
+    # Replacement of "\\" followed by one of more chars with a space
+    input_string = input_string.strip("'")
+    result = input_string.replace(r'\n', r'\\x0a')
+    result = result.replace("\\", ' ')
+    # Replacement of "\n" with "\\x0a"
+    output_string = result
+    output_blocks = output_string.split()
+    for n, block in enumerate(output_blocks):
+        if block[0] != 'x':
+            ascii_char = ord(block[0])
+            hex_val = hex(ascii_char)
+            hex_val = hex_val.replace('0x', '')
+            block = hex_val + block[1:]  # Replace only the first char
+        else:
+            block = block[1:]
+        if block[2:]:
+            start = block[0:2]
+            for char in block[2:]:
+                ascii_char = ord(char)
+                hex_val = hex(ascii_char)
+                hex_val = hex_val.replace('0x', ' ')
+                block = start + hex_val
+        output_blocks[n] = block
+
+    unique_string = ' '.join(output_blocks)
+    unique_string.replace('x', ' ')
+    hex_pairs = unique_string.split()
+    decimal_sum = sum(int(number, 16) for number in hex_pairs)
+    return decimal_sum
+
+
+def process_ex_cap(input_string):
+    # Replacement of "\\" followed by one of more chars with a space
+    input_string = input_string.strip("'")
+    result = input_string.replace(r'\n', r'\\x0a')
+    result = result.replace("\\", ' ')
+    # Replacement of "\n" with "\\x0a"
+    output_string = result
+    output_blocks = output_string.split()
+    for n, block in enumerate(output_blocks):
+        if block[0] != 'x':
+            ascii_char = ord(block[0])
+            hex_val = hex(ascii_char)
+            hex_val = hex_val.replace('0x', '')
+            block = hex_val + block[1:]  # Replace only the first char
+        else:
+            block = block[1:]
+        if block[2:]:
+            start = block[0:2]
+            for char in block[2:]:
+                ascii_char = ord(char)
+                hex_val = hex(ascii_char)
+                hex_val = hex_val.replace('0x', ' ')
+                block = start + hex_val
+        output_blocks[n] = block
+
+    unique_string = ' '.join(output_blocks)
+    unique_string.replace('x', ' ')
+    hex_pairs = unique_string.split()
+    binary_strings = []
+    for hex_pair in hex_pairs:
+        # Convert the hex couple in binary form and join it with the binary strings list
+        binary_str = bin(int(hex_pair, 16))[2:].zfill(8)  # Replace the binary with a series of 0s at the beginning
+        binary_strings.append(binary_str)
+
+    total_ones = 0
+    for binary_str in binary_strings:
+        total_ones += binary_str.count('1')
+
+    return total_ones
+
+
+def calculate_combined_sum(dictionary):
+    total_sum = 0
+    for value in dictionary.values():
+        if value.isdigit():
+            total_sum += int(value)
+    return total_sum
+
+
+def process_oui(testo, info):
+    # Find te part within the parenthesis with a regular expression
+    match = re.search(r'\((.*?)\)', testo)
+    if match:
+        hex_string = match.group(1).replace(':', ' ')
+        hex_pairs = hex_string.split()
+        return sum(int(number, 16) for number in hex_pairs) + process_input_string(info)
+    else:
+        hex_string = testo.replace(':', ' ')
+        hex_pairs = hex_string.split()
+        return sum(int(number, 16) for number in hex_pairs) + process_input_string(info)
 
 
 if __name__ == "__main__":
@@ -136,9 +169,9 @@ if __name__ == "__main__":
     main_bf.anonymization_noise(30)
 
     logger.info("Reading pcap file")
-    capture = pyshark.FileCapture(file)
+    capture = rdpcap(file)
 
-    flat_time = datetime.datetime.timestamp(capture[0].sniff_time)
+    flat_time = float(capture[0].time)
     TIME_WINDOW = 0
     pkt_counter = 0
     values_list = list()
@@ -150,28 +183,84 @@ if __name__ == "__main__":
     cluster_counter = 0
 
     logger.info("Parsing packets")
-    for pkt in capture:
-        # Check if the signal power is sufficient
-        if len(pkt.layers) < 2 or int(pkt.layers[1]._all_fields.get("wlan_radio.signal_dbm")) <= power_threshold:
+    quadruplets = {}
+    count = {}
+    for i, packet in enumerate(capture):
+
+        src = packet.addr2
+        quadruplets[i] = [-1, -1, -1, -1]
+        if packet.dBm_AntSignal <= power_threshold:
             continue
+
         pkt_counter += 1
-        TIME_WINDOW = datetime.datetime.timestamp(pkt.sniff_time) - flat_time
-        src_mac = pkt.layers[2]._all_fields.get("wlan.ta")
-        first_octet = int(float.fromhex(src_mac.split(":")[0][1]))
-        # Check the nature of MAC address
-        if (first_octet & 2) == 0:
-            # Globally unique
-            if not main_bf.check(src_mac):
-                main_bf.add(src_mac)
-            if src_mac not in global_mac_list:
-                global_counter += 1
-                global_mac_list.append(src_mac)
-                values, _ = create_triplet(None, pkt)
-                global_values_dict[src_mac] = values
-            continue
-        values, df = create_triplet(df, pkt)
-        values_list.append(values)
-        local_mac_list.append(src_mac)
+        TIME_WINDOW = float(packet.time) - flat_time
+        probe_req = packet.getlayer("Dot11ProbeReq")
+        if probe_req:
+            first_octet = int(float.fromhex(src.split(":")[0][1]))
+            # Check the nature of MAC address
+            if (first_octet & 2) == 0:
+                # Globally unique
+                if not main_bf.check(src):
+                    main_bf.add(src)
+                if src not in global_mac_list:
+                    global_counter += 1
+                    global_mac_list.append(src)
+                continue
+            packet_dict = {}
+            counter = {}
+            layer = None
+            for line in packet.show2(dump=True).split('\n'):
+                if '###' in line:
+                    layer = line.strip('#[] ')
+                    if layer == 'RadioTap' or layer == '|###[ RadioTap Extended presence mask':
+                        pass
+                    else:
+                        if layer not in packet_dict.keys():
+                            counter[layer] = 0
+                        else:
+                            count = counter[layer] + 1
+                            counter[layer] += 1
+                            layer = layer + str(count)
+                        packet_dict[layer] = {}
+                elif '=' in line:
+                    if layer == 'RadioTap' or layer == '|###[ RadioTap Extended presence mask':
+                        pass
+                    else:
+                        key, val = line.split('=', 1)
+                        packet_dict[layer][key.strip()] = val.strip()
+
+            for entry in packet_dict.keys():
+                if 'ID' in packet_dict[entry]:
+                    src = packet.addr2
+                    if packet_dict[entry]['ID'] == 'VHT Capabilities':
+                        try:
+                            quadruplets[i][0] = process_input_string(packet_dict[entry]['info'])
+                        except Exception as e:
+                            pass
+                    elif packet_dict[entry]['ID'] == 'Extendend Capabilities':
+                        try:
+                            quadruplets[i][1] = process_input_string(packet_dict[entry]['info'])
+                        except Exception as e:
+                            pass
+                    elif packet_dict[entry]['ID'] == 'HT Capabilities':
+                        try:
+                            quadruplets[i][2] = calculate_combined_sum(packet_dict[entry])
+                        except Exception as e:
+                            pass
+                    elif packet_dict[entry]['ID'] == 'Vendor Specific':
+                        if 'oui' in packet_dict[entry].keys():
+                            quadruplets[i][3] += process_oui(packet_dict[entry]['oui'], packet_dict[entry]['info'])
+                        else:
+                            quadruplets[i][3] += process_input_string(packet_dict[entry]['info'])
+
+            new_df = pd.DataFrame(
+                {"vht_cap": [quadruplets[i][0]], "ext_cap": [quadruplets[i][1]], "ht_cap": [quadruplets[i][2]], "vendor": [quadruplets[i][3]]})
+            df = pd.concat(
+                [df, new_df],
+                ignore_index=True
+            )
+            values_list.append(quadruplets[i])
+            local_mac_list.append(src)
 
     cluster_devices = 0
 
@@ -206,7 +295,7 @@ if __name__ == "__main__":
             cluster = cluster_labels[i]
             cluster_values[cluster].append(val)
 
-        # Perform the average of the VHT, Extended and HT capabilities inside clusters
+        # Perform the average of the IEs inside clusters
         cluster_values = {
             key: [sum(sub_list) / len(sub_list) for sub_list in zip(*value)] for key, value in cluster_values.items()
         }
@@ -218,7 +307,8 @@ if __name__ == "__main__":
             for key in cluster_values.keys():
                 # Choose the closest device with similar characteristics
                 min_dist = rates_dict[
-                    min(rates_dict.keys(), key=lambda k: spatial.distance.euclidean(rates_dict[k][0], cluster_values[key]))
+                    min(rates_dict.keys(),
+                        key=lambda k: spatial.distance.euclidean(rates_dict[k][0], cluster_values[key]))
                 ][0]
                 closest_rates = [rates_dict[k][1] for k in rates_dict.keys() if min_dist == rates_dict[k][0]]
                 # If multiple matches are found, take the average rate

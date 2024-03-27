@@ -14,7 +14,7 @@ This Python script is designed to analyze wireless network traffic captured in a
 - `datetime`: For time-related functions.
 - `sys`: Provides access to some variables used or maintained by the interpreter.
 - `argparse`: Allows command-line argument parsing.
-- `pyshark`: A Python wrapper for the Wireshark packet analyzer.
+- `scapy`: A Python wrapper for the Wireshark packet analyzer.
 - `logging`: Used for logging information and errors.
 - `json`: For reading a device-model database in JSON format.
 - `pandas`: Provides data structures for efficient data manipulation.
@@ -24,12 +24,6 @@ This Python script is designed to analyze wireless network traffic captured in a
 - `mmh3`: Provides the logic to use MurMur Hashing for Bloom Filter.
 - `math`: Includes some useful math operations.
 - `numpy`: For managing multi-dimensional arrays.
-
-## Constants and Configuration
-
-- `LAYERS`: The number of protocol layers to analyze in each packet.
-- `FIELDS_NAME`: A list of field names to be extracted from packet layers.
-- `HEX_DICTIONARY`: A dictionary to convert hexadecimal values to binary.
 
 ## Command Line Arguments
 
