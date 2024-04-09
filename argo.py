@@ -10,6 +10,7 @@ from scipy import spatial
 from sklearn.cluster import OPTICS
 from statistics import mean
 from bloomfilter_operations import *
+from math import ceil
 
 
 def bloom_filter_insertion(main_bf, cluster_mac):
@@ -128,7 +129,7 @@ if __name__ == "__main__":
                         help="Default number assigned to a cluster if the condition on the Maximum Ratio is not respected.")
     parser.add_argument("--min_percentage", type=float, default=0.02,
                         help="Minimum percentage of probe request that must have locally administered MAC address for doing clustering.")
-    parser.add_argument("--epsilon", type=int, default=0.001, help="Epsilon parameter for DBSCAN clustering.")
+    parser.add_argument("--epsilon", type=float, default=0.001, help="Epsilon parameter for DBSCAN clustering.")
     parser.add_argument("--min_samples", type=int, default=15, help="Min samples parameter for clustering.")
     parser.add_argument("--distance_metric", type=str, default="euclidean",
                         help="Metric parameter for clustering.")
@@ -160,7 +161,13 @@ if __name__ == "__main__":
     with open("./models.json", "r") as fr:
         hash_dict = json.load(fr)
 
-    rates_dict = {hash_dict[k]["id"]: (hash_dict[k]["cap_id"], hash_dict[k][rate_modality]) for k in hash_dict.keys()}
+    rates_dict = dict()
+
+    for k, values in hash_dict.items():
+        if values[rate_modality] == 0:
+            rates_dict[values["id"]] = (values["cap_id"], values["mean_rate"])
+        else:
+            rates_dict[values["id"]] = (values["cap_id"], values[rate_modality])
 
     logger.info("Creating Bloom Filter structure")
     # BF Creation
@@ -319,7 +326,7 @@ if __name__ == "__main__":
                 T = TIME_WINDOW
                 if N / T < max_ratio:
                     K = N / (L * T)
-                    K = round(K)
+                    K = ceil(K)
                     device_numbers[key] = K if K > 0 else 1
                 else:
                     device_numbers[key] = default_counter
