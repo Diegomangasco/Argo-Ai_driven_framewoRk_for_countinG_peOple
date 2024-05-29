@@ -1,4 +1,10 @@
-# ARGO - Wireless People Counting Framework
+# ARGO (Ai-driven framewoRk for CountinG peOple) - Wireless People Counting Framework
+
+## REFERENCES
+
+If you use the content of this repository, please reference the following paper: 
+
+> R. Rusca, A. Carluccio, D. Gasco and P. Giaccone, "Privacy-Aware Crowd Monitoring and WiFi Traffic Emulation for Effective Crisis Management," 2023 International Conference on Information and Communication Technologies for Disaster Management (ICT-DM), Cosenza, Italy, 2023, pp. 1-6, doi: 10.1109/ICT-DM58371.2023.10286944. [URL](https://ieeexplore.ieee.org/document/10286944) [BibTeX](/cite.bib)
 
 This Python script is designed to analyze wireless network traffic captured in a PCAP file and count devices that use either globally unique MAC addresses or locally administered MAC addresses. It also performs clustering of devices based on their network capabilities.
 
