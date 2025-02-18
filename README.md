@@ -44,7 +44,7 @@ The script accepts the following command-line arguments:
 - `--min_samples`: Min samples parameter for DBSCAN clustering.
 - `--distance_metric`: Metric parameter for clustering.
 - `--rate_modality`: Choose the rate to extract from the database.
-- `--clustering_method`: Clustering method, the possible choices are `dbscan` and `optics`.
+- `--cluster_method`: Clustering method, the possible choices are `dbscan` and `optics`.
 - `--counting_method`: Counting method when a cluster is examined, the possible choices are `simple` and `advanced`.
 
 ## Code Execution
@@ -72,7 +72,7 @@ The script generates log information about the devices using globally unique MAC
 Example usage:
 
 ```shell
-python argo.py --input_file ./example.pcap --max_ratio 100 --power_threshold -70 --default_counter 1 --min_percentage 0.02 --epsilon 4 --min_samples 15 --dbscan_metric euclidean --rate_modality mean_rate --clustering_method dbscan --counting_method advanced
+python argo.py --input_file ./example.pcap --max_ratio 100 --power_threshold -70 --default_counter 1 --min_percentage 0.02 --epsilon 4 --min_samples 15 --distance_metric euclidean --rate_modality mean_rate --cluster_method dbscan --counting_method advanced
 ```
 
 ## Authors
