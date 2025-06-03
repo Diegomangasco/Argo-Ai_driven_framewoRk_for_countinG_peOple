@@ -244,7 +244,7 @@ if __name__ == "__main__":
                             quadruplets[i][0] = process_input_string(packet_dict[entry]['info'])
                         except Exception as e:
                             pass
-                    elif packet_dict[entry]['ID'] == 'Extendend Capabilities':
+                    elif packet_dict[entry]['ID'] == 'Extended Capabilities':
                         try:
                             quadruplets[i][1] = process_input_string(packet_dict[entry]['info'])
                         except Exception as e:
